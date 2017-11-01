@@ -1,5 +1,5 @@
 #mapDivId {
+  position: fixed;
   width: 66vw;
   height: 100vh;
-  border: 3px solid #070707;
   }
