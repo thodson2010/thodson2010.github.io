@@ -32,11 +32,11 @@ window.onload = function () {
   }).addTo(mapObject);
 
   // bikeThefts is the variable name we difined in Bike_Thefts_2011.js file. 
-  var bikesLayerGroup = L.geoJSON(bikeThefts, {
+  var crimesLayerGroup = L.geoJSON(bikeThefts, {
     onEachFeature: myFunctionHolder.addPopups,
     pointToLayer: myFunctionHolder.pointToCircle
   });
 
-  mapObject.addLayer(bikesLayerGroup);
-  mapObject.fitBounds(bikesLayerGroup.getBounds());
+  mapObject.addLayer(crimesLayerGroup);
+  mapObject.fitBounds(crimesLayerGroup.getBounds());
 };
