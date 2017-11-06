@@ -5,6 +5,7 @@ var myFunctionHolder = {};
 myFunctionHolder.addPopups = function (feature, layer) {
   if (feature.properties && feature.properties.Location) {
     layer.bindPopup("<b>Crime Type: </b>" + feature.properties["Incident Type"]);
+    layer.bindPopup("<b>Description: </b>" + feature.properties["Description"]);
   }
 }
 
