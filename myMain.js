@@ -4,10 +4,11 @@ var myFunctionHolder = {};
 //declaring function 1
 myFunctionHolder.addPopups = function (feature, layer) {
   if (feature.properties && feature.properties.Location) {
-    var incLocation = feature.properties.Location
-    var endLoc = incLocation.indexOf("Ohio");
-    incLocation = incLocation.substring(0, endLoc-1);
-    layer.bindPopup("<b>Crime Type : </b>" + feature.properties["Incident Type"] + "<b> Location : </b>" + incLocation);
+    var list = "<dl><dt>Incident Type:</dt>"
+    + "<dd>" + feature.properties["Incident Type"] + "</dd>"
+    + "<dt>Description:</dt>"
+    + "<dd>" + feature.properties["Description"] + "</dd>"
+    layer.bindPopup(list);
   }
 }
 
