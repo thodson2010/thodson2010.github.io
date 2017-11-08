@@ -25,11 +25,11 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
   }
   else if(feature.properties["Incident Type"].includes("Drug"))
   {
-    fillColorVar = "purple";
+    fillColorVar = "green";
   }
   else if(feature.properties["Incident Type"].includes("Theft") || feature.properties["Incident Type"].includes("Burglary") || feature.properties["Incident Type"].includes("Breaking"))
   {
-    fillColorVar = "green";
+    fillColorVar = "orange";
   }
   else if(feature.properties["Incident Type"].includes("Assault") || feature.properties["Incident Type"].includes("Criminal"))
   {
