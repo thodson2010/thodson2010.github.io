@@ -1,7 +1,7 @@
 #mapDivId {
   position: fixed;
   z-index: -1;
-  width: 65vw;
+  width: 64vw;
   height: 93vh;
   border: 1px solid white;
   }
