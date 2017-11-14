@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="myStylesheet.css" />
   <!-- Scripts -->
   <script src="leaflet.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="crimeData.js"></script>
   <script src="myMain.js"></script>
   <style>
@@ -52,8 +53,20 @@ li.dropdown {
 
 #description-box {
   position: fixed;
-  right: 1vw;
+  width: 33vw;
+  height: 50vh;
+  border: 1px solid white;
+  right: .5vw;
+  text-align: center;
   color: white;
+}
+
+.toggles {
+  background: white;
+  padding-left: 3px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 7px;
 }
 
 .dropdown-content a {
@@ -85,13 +98,10 @@ li.dropdown {
         <a href="#" id="filter3">Illness</a>
       </div>
     </li>
-    <li>
-      <div id="description-box"></div>
-    </li>
   </ul>
   <div id="mapDivId">
-
   </div>
+  <div id="description-box"></div>
 
 </body>
 
