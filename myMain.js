@@ -6,52 +6,46 @@ myFunctionHolder.addPopups = function (feature, layer) {
   if (feature.properties && feature.properties.Location) {
     var incLocation = feature.properties.Location
     var endLoc = incLocation.indexOf("Ohio");
-    incLocation = incLocation.substring(0, endLoc-1);
+    incLocation = incLocation.substring(0, endLoc - 1);
     //layer.bindPopup("<b>Crime Type : </b>" + feature.properties["Incident Type"] + "<br><b> Location : </b>" + incLocation);
   }
 }
 
 //Filter for each crime type: Need to find way of condensing to one method
-myFunctionHolder.filterTheft = function(feature){
+myFunctionHolder.filterTheft = function (feature) {
   var type = feature.properties["Incident Type"];
-  if (type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking"))
-  {
+  if (type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking")) {
     return true;
   }
 }
-myFunctionHolder.filterCrash = function(feature){
+myFunctionHolder.filterCrash = function (feature) {
   var type = feature.properties["Incident Type"];
-  if (type.includes("Crash"))
-  {
+  if (type.includes("Crash")) {
     return true;
   }
 }
-myFunctionHolder.filterDrug = function(feature){
+myFunctionHolder.filterDrug = function (feature) {
   var type = feature.properties["Incident Type"];
-  if (type.includes("Drug"))
-  {
+  if (type.includes("Drug")) {
     return true;
   }
 }
-myFunctionHolder.filterAdmin = function(feature){
+myFunctionHolder.filterAdmin = function (feature) {
   var type = feature.properties["Incident Type"];
-  if (type.includes("Administrative") || type.includes("Assist"))
-  {
+  if (type.includes("Administrative") || type.includes("Assist")) {
     return true;
   }
 }
-myFunctionHolder.filterAssault = function(feature){
+myFunctionHolder.filterAssault = function (feature) {
   var type = feature.properties["Incident Type"];
-  if (type.includes("Assault") || type.includes("Criminal"))
-  {
+  if (type.includes("Assault") || type.includes("Criminal")) {
     return true;
   }
 }
-myFunctionHolder.filterOther = function(feature){
+myFunctionHolder.filterOther = function (feature) {
   var type = feature.properties["Incident Type"];
   if (!type.includes("Assault") && !type.includes("Criminal") && !type.includes("Administrative") && !type.includes("Assist") && !type.includes("Drug") && !type.includes("Crash") && !type.includes("Theft")
-  && !type.includes("Burglary") && !type.includes("Breaking"))
-  {
+    && !type.includes("Burglary") && !type.includes("Breaking")) {
     return true;
   }
 }
@@ -62,24 +56,19 @@ myFunctionHolder.filterOther = function(feature){
 myFunctionHolder.pointToCircle = function (feature, latlng) {
   var fillColorVar = "white";
   var type = feature.properties["Incident Type"];
-  if(type.includes("Crash"))
-  {
+  if (type.includes("Crash")) {
     fillColorVar = "blue";
   }
-  else if(type.includes("Drug"))
-  {
+  else if (type.includes("Drug")) {
     fillColorVar = "purple";
   }
-  else if(type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking"))
-  {
+  else if (type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking")) {
     fillColorVar = "green";
   }
-  else if(type.includes("Assault") || type.includes("Criminal"))
-  {
+  else if (type.includes("Assault") || type.includes("Criminal")) {
     fillColorVar = "red";
   }
-  else if(type.includes("Administrative") || type.includes("Assist"))
-  {
+  else if (type.includes("Administrative") || type.includes("Assist")) {
     fillColorVar = "yellow";
   }
   var geojsonMarkerOptions = {
@@ -91,20 +80,20 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
     fillOpacity: 0.8
   };
   var circleMarker = L.circleMarker(latlng, geojsonMarkerOptions);
-  circleMarker.on('click', function(){
-        geojsonMarkerOptions.color = "#FFF"; //not working, need to fix
-        //writing description
-        var description = "<p><b>Description : </b>" + feature.properties.Description + "</p>";
-        //writing location, trim off end
-        var incLocation = feature.properties.Location
-        var endLoc = incLocation.indexOf("Ohio");
-        incLocation = incLocation.substring(0, endLoc-1);
-        var location = "<p><b>Location: </b>" + incLocation + "</p>";
-        //writing type
-        var type = "<p><b>Crime Type : </b>" + feature.properties["Incident Type"] + "</p>";
-        //combining
-        document.getElementById("description-box").innerHTML = description + location + type;
-    });
+  circleMarker.on('click', function () {
+    geojsonMarkerOptions.color = "#FFF"; //not working, need to fix
+    //writing description
+    var description = "<p><b>Description : </b>" + feature.properties.Description + "</p>";
+    //writing location, trim off end
+    var incLocation = feature.properties.Location
+    var endLoc = incLocation.indexOf("Ohio");
+    incLocation = incLocation.substring(0, endLoc - 1);
+    var location = "<p><b>Location: </b>" + incLocation + "</p>";
+    //writing type
+    var type = "<p><b>Crime Type : </b>" + feature.properties["Incident Type"] + "</p>";
+    //combining
+    document.getElementById("description-box").innerHTML = description + location + type;
+  });
   return circleMarker;
 }
 
@@ -151,59 +140,84 @@ window.onload = function () {
   mapObject.addLayer(otherLayerGroup);
 
   //add overlay for toggling crime types, id = "toggles"
-  var legend = L.control({position: 'bottomleft'});
+  var toggle = L.control({ position: 'bottomleft' });
+  var legend = L.control({ position: 'bottomright' });
 
   //Adds toggles to map
+  toggle.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'toggles');
+    div.innerHTML = "<b>Filters: </b><form><input type = \"checkbox\" id=\"theftToggle\" checked><label>Theft</label></input><input type = \"checkbox\" id = \"crashToggle\" checked><label>Traffic Incident</label></input></form><input type = \"checkbox\" id=\"drugToggle\" checked><label>Drug-related</label></input><input type = \"checkbox\" id=\"adminToggle\" checked><label>Administrative</label></input><input type = \"checkbox\" id=\"assaultToggle\" checked><label>Criminal Incident</label></input><input type = \"checkbox\" id=\"otherToggle\" checked><label>Other</label></input>";
+    return div;
+  };
+
   legend.onAdd = function (map) {
-      var div = L.DomUtil.create('div', 'toggles');
-      div.innerHTML = "<b>Filters: </b><form><input type = \"checkbox\" id=\"theftToggle\" checked><label>Theft</label></input><input type = \"checkbox\" id = \"crashToggle\" checked><label>Traffic Incident</label></input></form><input type = \"checkbox\" id=\"drugToggle\" checked><label>Drug-related</label></input><input type = \"checkbox\" id=\"adminToggle\" checked><label>Administrative</label></input><input type = \"checkbox\" id=\"assaultToggle\" checked><label>Criminal Incident</label></input><input type = \"checkbox\" id=\"otherToggle\" checked><label>Other</label></input>";
-      return div;
+
+    var div = L.DomUtil.create('div', 'legend'),
+    categories = ['Theft', 'Traffic Incident', 'Drug Related', 'Administrative', 'Criminal Incident', 'Other'];
+
+    for (var i = 0; i < categories.length; i++) {
+      div.innerHTML +=
+        '<i style="background:' + getColor(categories[i]) + '"></i> ' +
+        (categories[i] ? categories[i] + '<br>' : '+');
+    }
+
+    return div;
+  };
+
+  function getColor(d) {
+    return d === 'Theft' ? 'green' :
+      d === 'Traffic Incident' ? 'blue' :
+        d === 'Drug Related' ? 'purple' :
+          d === 'Administrative' ? 'yellow' :
+            d === 'Criminal Incident' ? 'red' :
+              'white';
   };
 
   var overlays = {
     "Thefts": theftLayerGroup
   };
   mapObject.fitBounds(adminLayerGroup.getBounds());
+  toggle.addTo(mapObject);
   legend.addTo(mapObject);
 
   //Checks for each toggle
-  $('#theftToggle').change(function() {
-      if (this.checked)
-        mapObject.addLayer(theftLayerGroup);
-      else
-        mapObject.removeLayer(theftLayerGroup);
+  $('#theftToggle').change(function () {
+    if (this.checked)
+      mapObject.addLayer(theftLayerGroup);
+    else
+      mapObject.removeLayer(theftLayerGroup);
   });
 
-  $('#crashToggle').change(function() {
-      if (this.checked)
-        mapObject.addLayer(crashLayerGroup);
-      else
-        mapObject.removeLayer(crashLayerGroup);
+  $('#crashToggle').change(function () {
+    if (this.checked)
+      mapObject.addLayer(crashLayerGroup);
+    else
+      mapObject.removeLayer(crashLayerGroup);
   });
 
-  $('#drugToggle').change(function() {
-      if (this.checked)
-        mapObject.addLayer(drugLayerGroup);
-      else
-        mapObject.removeLayer(drugLayerGroup);
+  $('#drugToggle').change(function () {
+    if (this.checked)
+      mapObject.addLayer(drugLayerGroup);
+    else
+      mapObject.removeLayer(drugLayerGroup);
   });
 
-  $('#adminToggle').change(function() {
-      if (this.checked)
-        mapObject.addLayer(adminLayerGroup);
-      else
-        mapObject.removeLayer(adminLayerGroup);
+  $('#adminToggle').change(function () {
+    if (this.checked)
+      mapObject.addLayer(adminLayerGroup);
+    else
+      mapObject.removeLayer(adminLayerGroup);
   });
-  $('#assaultToggle').change(function() {
-      if (this.checked)
-        mapObject.addLayer(assaultLayerGroup);
-      else
-        mapObject.removeLayer(assaultLayerGroup);
+  $('#assaultToggle').change(function () {
+    if (this.checked)
+      mapObject.addLayer(assaultLayerGroup);
+    else
+      mapObject.removeLayer(assaultLayerGroup);
   });
-  $('#otherToggle').change(function() {
-      if (this.checked)
-        mapObject.addLayer(otherLayerGroup);
-      else
-        mapObject.removeLayer(otherLayerGroup);
+  $('#otherToggle').change(function () {
+    if (this.checked)
+      mapObject.addLayer(otherLayerGroup);
+    else
+      mapObject.removeLayer(otherLayerGroup);
   });
 };
