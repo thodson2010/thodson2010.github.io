@@ -83,9 +83,9 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
   circleMarker.on('click', function () {
     geojsonMarkerOptions.color = "#FFF"; //not working, need to fix
     //writing type
-    var type = "<p><b>Crime Type : </b>" + feature.properties["Incident_Type"] + "</p>";
+    var type = "<p><b>Crime Type: </b>" + feature.properties["Incident_Type"] + "</p>";
     //writing description
-    var description = "<p><b>Description : </b>" + feature.properties.Description + "</p>";
+    var description = "<p><b>Description: </b>" + feature.properties.Description + "</p>";
     //writing location, trim off end
     var incLocation = feature.properties.Location
     var endLoc = incLocation.indexOf("Ohio");
