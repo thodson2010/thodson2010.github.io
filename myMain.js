@@ -13,37 +13,37 @@ myFunctionHolder.addPopups = function (feature, layer) {
 
 //Filter for each crime type: Need to find way of condensing to one method
 myFunctionHolder.filterTheft = function (feature) {
-  var type = feature.properties["Incident Type"];
+  var type = feature.properties["Incident_Type"];
   if (type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking")) {
     return true;
   }
 }
 myFunctionHolder.filterCrash = function (feature) {
-  var type = feature.properties["Incident Type"];
+  var type = feature.properties["Incident_Type"];
   if (type.includes("Crash")) {
     return true;
   }
 }
 myFunctionHolder.filterDrug = function (feature) {
-  var type = feature.properties["Incident Type"];
+  var type = feature.properties["Incident_Type"];
   if (type.includes("Drug")) {
     return true;
   }
 }
 myFunctionHolder.filterAdmin = function (feature) {
-  var type = feature.properties["Incident Type"];
+  var type = feature.properties["Incident_Type"];
   if (type.includes("Administrative") || type.includes("Assist")) {
     return true;
   }
 }
 myFunctionHolder.filterAssault = function (feature) {
-  var type = feature.properties["Incident Type"];
+  var type = feature.properties["Incident_Type"];
   if (type.includes("Assault") || type.includes("Criminal")) {
     return true;
   }
 }
 myFunctionHolder.filterOther = function (feature) {
-  var type = feature.properties["Incident Type"];
+  var type = feature.properties["Incident_Type"];
   if (!type.includes("Assault") && !type.includes("Criminal") && !type.includes("Administrative") && !type.includes("Assist") && !type.includes("Drug") && !type.includes("Crash") && !type.includes("Theft")
     && !type.includes("Burglary") && !type.includes("Breaking")) {
     return true;
@@ -55,7 +55,7 @@ myFunctionHolder.filterOther = function (feature) {
 //declaring function 2
 myFunctionHolder.pointToCircle = function (feature, latlng) {
   var fillColorVar = "white";
-  var type = feature.properties["Incident Type"];
+  var type = feature.properties["Incident_Type"];
   if (type.includes("Crash")) {
     fillColorVar = "blue";
   }
@@ -82,6 +82,8 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
   var circleMarker = L.circleMarker(latlng, geojsonMarkerOptions);
   circleMarker.on('click', function () {
     geojsonMarkerOptions.color = "#FFF"; //not working, need to fix
+    //writing type
+    var type = "<p><b>Crime Type : </b>" + feature.properties["Incident_Type"] + "</p>";
     //writing description
     var description = "<p><b>Description : </b>" + feature.properties.Description + "</p>";
     //writing location, trim off end
@@ -89,8 +91,6 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
     var endLoc = incLocation.indexOf("Ohio");
     incLocation = incLocation.substring(0, endLoc - 1);
     var location = "<p><b>Location: </b>" + incLocation + "</p>";
-    //writing type
-    var type = "<p><b>Crime Type : </b>" + feature.properties["Incident Type"] + "</p>";
     //combining
     document.getElementById("description-box").innerHTML = description + location + type;
   });
