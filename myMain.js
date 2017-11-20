@@ -106,6 +106,10 @@ window.onload = function () {
   }).addTo(mapObject);
 
   //Create each layer group
+  var otherLayerGroup = L.geoJSON(crimeData, {
+    filter: myFunctionHolder.filterOther,
+    pointToLayer: myFunctionHolder.pointToCircle
+  });
   var theftLayerGroup = L.geoJSON(crimeData, {
     filter: myFunctionHolder.filterTheft,
     pointToLayer: myFunctionHolder.pointToCircle
@@ -126,18 +130,15 @@ window.onload = function () {
     filter: myFunctionHolder.filterAssault,
     pointToLayer: myFunctionHolder.pointToCircle
   });
-  var otherLayerGroup = L.geoJSON(crimeData, {
-    filter: myFunctionHolder.filterOther,
-    pointToLayer: myFunctionHolder.pointToCircle
-  });
 
   //originally show every layer
+  mapObject.addLayer(otherLayerGroup);
   mapObject.addLayer(theftLayerGroup);
   mapObject.addLayer(crashLayerGroup);
   mapObject.addLayer(drugLayerGroup);
   mapObject.addLayer(adminLayerGroup);
   mapObject.addLayer(assaultLayerGroup);
-  mapObject.addLayer(otherLayerGroup);
+
 
   //add overlay for toggling crime types, id = "toggles"
   var toggle = L.control({ position: 'bottomleft' });
@@ -181,6 +182,12 @@ window.onload = function () {
   legend.addTo(mapObject);
 
   //Checks for each toggle
+  $('#otherToggle').change(function () {
+    if (this.checked)
+      mapObject.addLayer(otherLayerGroup);
+    else
+      mapObject.removeLayer(otherLayerGroup);
+  });
   $('#theftToggle').change(function () {
     if (this.checked)
       mapObject.addLayer(theftLayerGroup);
@@ -213,11 +220,5 @@ window.onload = function () {
       mapObject.addLayer(assaultLayerGroup);
     else
       mapObject.removeLayer(assaultLayerGroup);
-  });
-  $('#otherToggle').change(function () {
-    if (this.checked)
-      mapObject.addLayer(otherLayerGroup);
-    else
-      mapObject.removeLayer(otherLayerGroup);
   });
 };
