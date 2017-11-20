@@ -166,12 +166,19 @@ window.onload = function () {
   };
 
   function getColor(d) {
-    return d === 'Theft' ? 'green' :
-      d === 'Traffic Incident' ? 'blue' :
-        d === 'Drug Related' ? 'purple' :
-          d === 'Administrative' ? 'yellow' :
-            d === 'Criminal Incident' ? 'red' :
-              'white';
+    if (d === 'Theft') {
+      return 'green';
+    } else if (d === 'Traffic Incident') {
+      return 'blue';
+    } else if (d === "Drug Related") {
+      return 'purple';
+    } else if (d === "Administrative") {
+      return 'yellow';
+    } else if (d === "Criminal Incident") {
+      return 'red';
+    } else {
+      return 'white';
+    }
   };
 
   var overlays = {
