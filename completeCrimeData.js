@@ -1,4 +1,4 @@
-﻿{
+﻿var crimeData = {
    "type": "FeatureCollection",
    "features": [
   {
