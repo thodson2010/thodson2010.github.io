@@ -154,30 +154,32 @@ window.onload = function () {
   legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'legend'),
-    categories = ['Theft', 'Traffic Incident', 'Drug Related', 'Administrative', 'Criminal Incident', 'Other'];
+      title = ['<strong> Crime Type </strong>'],
+      categories = ['Theft', 'Traffic Incident', 'Drug Related', 'Administrative', 'Criminal Incident', 'Other'];
 
     for (var i = 0; i < categories.length; i++) {
-      div.innerHTML +=
-        '<i style="background:' + getColor(categories[i]) + '"></i> ' +
-        (categories[i] ? categories[i] + '<br>' : '+');
+      div.innerHTML += title.push(
+        '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' + categories[i]);
     }
+    div.innerHTML = title.join('<br>');
 
     return div;
   };
 
   function getColor(d) {
-    if (d === 'Theft') {
-      return 'green';
-    } else if (d === 'Traffic Incident') {
-      return 'blue';
-    } else if (d === "Drug Related") {
-      return 'purple';
-    } else if (d === "Administrative") {
-      return 'yellow';
-    } else if (d === "Criminal Incident") {
-      return 'red';
-    } else {
-      return 'white';
+    switch (d) {
+      case 'Theft':
+        return 'green';
+      case 'Traffic Incident':
+        return 'blue';
+      case 'Drug Related':
+        return 'purple';
+      case 'Administrative':
+        return 'yellow';
+      case 'Criminal Incident':
+        return 'red';
+      default:
+        return 'white';
     }
   };
 
