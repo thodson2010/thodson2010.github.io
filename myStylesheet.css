@@ -55,7 +55,7 @@ li a:hover,
 #creditBox{
     position: fixed;
     width: 32vw;
-    height: 9vh;
+    height: 10vh;
     border: 1px solid black;
     background: white;
     border-radius: 10px;
