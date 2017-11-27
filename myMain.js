@@ -251,7 +251,7 @@ window.onload = function () {
     mapObject.removeLayer(drugLayerGroup);
     mapObject.removeLayer(adminLayerGroup);
     mapObject.removeLayer(assaultLayerGroup);
-    
+
     var cfg = {
       // radius should be small ONLY if scaleRadius is true (or small radius is intended)
       // if scaleRadius is false it will be the constant radius used in pixels
@@ -260,7 +260,7 @@ window.onload = function () {
       // scales the radius based on map zoom
       "scaleRadius": true,
       // if set to false the heatmap uses the global maximum for colorization
-      // if activated: uses the data maximum within the current map boundaries 
+      // if activated: uses the data maximum within the current map boundaries
       //   (there will always be a red spot with useLocalExtremas true)
       "useLocalExtrema": true,
       // which field name in your data represents the latitude - default "lat"
@@ -270,7 +270,7 @@ window.onload = function () {
       // which field name in your data represents the data value - default "value"
       valueField : 'Value'
     };
-  
+
     var heatmapLayer = new HeatmapOverlay(cfg);
     heatmapLayer.setData(heatData);
     mapObject.addLayer(heatmapLayer);
@@ -281,4 +281,28 @@ window.onload = function () {
   timeButton.onclick = function(){
     console.log('Time Success');
   }
+
+  var ctx = document.getElementById("chartContainer").getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ["Drug", "Theft", "Traffic", "Administrative", "Assault", "Other"],
+      datasets: [
+        {
+          label: "Number of Occurrences",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: [drugLayerGroup.getLayers().length,theftLayerGroup.getLayers().length,crashLayerGroup.getLayers().length,adminLayerGroup.getLayers().length,assaultLayerGroup.getLayers().length,otherLayerGroup.getLayers().length]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      responsive: false,
+      maintainAspectRatio: false,
+      title: {
+        display: true,
+        text: 'Crime Occurrences Around Campus'
+      }
+    }
+});
 };
