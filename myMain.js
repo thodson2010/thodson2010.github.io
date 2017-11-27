@@ -286,11 +286,11 @@ window.onload = function () {
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ["Drug", "Theft", "Traffic", "Administrative", "Assault", "Other"],
+      labels: ["Drug", "Theft", "Traffic", "Administrative", "Criminal Incident", "Other"],
       datasets: [
         {
           label: "Number of Occurrences",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          backgroundColor: ["#800080", "#008000","#0000FF","#FFFF00","#FF0000","#F0F0F0"],
           data: [drugLayerGroup.getLayers().length,theftLayerGroup.getLayers().length,crashLayerGroup.getLayers().length,adminLayerGroup.getLayers().length,assaultLayerGroup.getLayers().length,otherLayerGroup.getLayers().length]
         }
       ]
