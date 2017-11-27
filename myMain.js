@@ -258,7 +258,7 @@ window.onload = function () {
     var cfg = {
       // radius should be small ONLY if scaleRadius is true (or small radius is intended)
       // if scaleRadius is false it will be the constant radius used in pixels
-      "radius": 0.001,
+      "radius": 0.01,
       "maxOpacity": .5,
       // scales the radius based on map zoom
       "scaleRadius": true,
