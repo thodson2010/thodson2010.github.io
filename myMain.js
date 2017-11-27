@@ -268,6 +268,7 @@ window.onload = function () {
       "useLocalExtrema": true,
       // which field name in your data represents the latitude - default "lat"
       latField: 'Lat',
+      max: '.5',
       // which field name in your data represents the longitude - default "lng"
       lngField: 'Lon',
       // which field name in your data represents the data value - default "value"
