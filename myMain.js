@@ -234,4 +234,23 @@ window.onload = function () {
     else
       mapObject.removeLayer(assaultLayerGroup);
   });
+
+
+  var dotButton = document.getElementById('dotMap');
+  dotButton.onclick = function(){
+    console.log('Dot Success');
+  }
+
+  var heatButton = document.getElementById('heatMap');
+  heatButton.onclick = function(){
+    console.log('Heat Success');
+  }
+
+  var timeButton = document.getElementById('timeline');
+  timeButton.onclick = function(){
+    console.log('Time Success');
+  }
+
+
+
 };
