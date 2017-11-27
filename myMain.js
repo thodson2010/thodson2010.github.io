@@ -265,7 +265,7 @@ window.onload = function () {
       // if set to false the heatmap uses the global maximum for colorization
       // if activated: uses the data maximum within the current map boundaries
       //   (there will always be a red spot with useLocalExtremas true)
-      "useLocalExtrema": true,
+      "useLocalExtrema": false,
       // which field name in your data represents the latitude - default "lat"
       latField: 'Lat',
       max: .5,
