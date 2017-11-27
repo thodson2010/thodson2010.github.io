@@ -109,6 +109,9 @@ window.onload = function () {
     attribution: "&copy; <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> &copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
   }).addTo(mapObject);
 
+  //Add text to credit box
+  document.getElementById("creditBox").innerHTML = "Created by: Tim Hodson, Sam Mortinger, Chris Kinder, and Arafat Hassan"
+
   //Create each layer group
   var otherLayerGroup = L.geoJSON(crimeData, {
     filter: myFunctionHolder.filterOther,
