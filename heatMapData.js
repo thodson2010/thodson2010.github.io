@@ -1,5 +1,5 @@
 ﻿var heatData = {
-  "max": 5,
+  "max": 10,
 	"data": [{
    "Location": "0 E 18th Ohio State Campus, Columbus, Ohio",
    "Latitude": 40.0032075,
