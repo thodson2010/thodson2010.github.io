@@ -138,6 +138,23 @@ window.onload = function () {
     pointToLayer: myFunctionHolder.pointToCircle
   });
 
+  //Code for clustering
+  /*var clusterGroup = L.markerClusterGroup({
+    showCoverageOnHover: false,
+    zoomToBoundsOnClick: false,
+    removeOutsideVisibleBounds: true
+
+  });
+  clusterGroup.addLayer(theftLayerGroup);
+  clusterGroup.addLayer(assaultLayerGroup);
+  clusterGroup.addLayer(drugLayerGroup);
+  clusterGroup.addLayer(crashLayerGroup);
+  clusterGroup.addLayer(adminLayerGroup);
+  clusterGroup.addLayer(otherLayerGroup);
+
+  mapObject.addLayer(clusterGroup);*/
+  //end code for clustering
+
   //originally show every layer
   mapObject.addLayer(otherLayerGroup);
   mapObject.addLayer(theftLayerGroup);
