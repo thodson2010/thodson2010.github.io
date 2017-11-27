@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CrimeTime Analytics Time Slider</title>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="leaflet.css" />
+    <link rel="stylesheet" href="timesliderstyle.css" />    
+    <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" /><![endif]-->
+    <link rel="stylesheet" href="JQueryUI.css" type="text/css">
+
+    <style>
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color:white;
+            }
+    
+            li {
+                float: left;
+            }
+    
+            li a,
+            .dropbtn {
+                display: inline-block;
+                color: #bb0000;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-family: "Arial", Helvetica, sans-serif;
+            }
+    
+            li a:hover,
+            .dropdown:hover .dropbtn {
+                background-color:#bcbcbc;
+                border-radius: 10px;
+            }
+    
+            li.dropdown {
+                display: inline-block;
+            }
+    
+            #description-box {
+                position: fixed;
+                width: 32vw;
+                height: 23vh;
+                border: 1px solid black;
+                border-radius: 10px;
+                right: 1vw;
+                text-align: left;
+                padding-left: 20px;
+                color: #bb0000;
+                font-family: "Arial", Helvetica, sans-serif;
+            }
+    
+            .toggles {
+                background: #bcbcbc;
+                padding-left: 3px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-right: 7px;
+                border-radius: 10px;
+            }
+    
+            .legend {
+                background: #bcbcbc;
+                padding-left: 3px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-right: 7px;
+                border-radius: 10px;
+            }
+    
+            .circle {
+                height: 14px;
+                width: 14px;
+                border-radius: 50%;
+                display: inline-block;
+                border: 1.5px solid black;
+            }
+        </style>
+</head>
+
+<body>
+    <ul>
+        <li>
+            <a href="index.html">Dot Map</a>
+        </li>
+        <li>
+            <a href="#heatMap">Heat Map</a>
+        </li>
+        <li>
+            <a href="timeslider.html">Timeline Map</a>
+        </li>
+    </ul>
+    <div id="map"></div>
+    
+    <script src="leaflet.js"></script>
+    <script src="JQuery.js"></script>
+    <script src="JQueryUI.js"></script>
+
+    <!-- Include this library for mobile touch support  -->
+    <script src="mobile_Support.js"></script>
+
+
+    <script src="SliderControl.js"></script>
+
+    <script>
+        var sliderControl = null;
+
+        var myMap = L.map('map').setView([40, -83], 12);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/thodson2010/cjaheuw43830s2rmoic7sv5ma/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGhvZHNvbjIwMTAiLCJhIjoiY2o2emhxOTI2MDBscjMybWZlM3hiNWI2eSJ9.OuRWPHW_VJ9Ek4_ROgF0Pw', {
+            maxZoom: 18,
+            attribution: "&copy; <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> &copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
+        }).addTo(myMap);
+
+
+
+
+        //Fetch some data from a GeoJSON file
+        $.getJSON("crimeData.json", function (json) {
+            var testlayer = L.geoJson(json),
+                sliderControl = L.control.sliderControl({
+                    position: "topright",
+                    layer: testlayer
+                });
+
+            //For a Range-Slider use the range property:
+            sliderControl = L.control.sliderControl({
+                position: "topright",
+                layer: testlayer,
+                range: true
+            });
+
+            //Make sure to add the slider to the map ;-)
+            myMap.addControl(sliderControl);
+            //And initialize the slider
+            sliderControl.startSlider();
+        });
+    </script>
+</body>
+
+</html>
