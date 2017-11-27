@@ -234,4 +234,51 @@ window.onload = function () {
     else
       mapObject.removeLayer(assaultLayerGroup);
   });
+
+  var dotButton = document.getElementById('dotMap');
+  dotButton.onclick = function(){
+    console.log('Dot Success');
+    location.reload();
+  }
+
+  var heatButton = document.getElementById('heatMap');
+  heatButton.onclick = function(){
+    console.log('Heat Success');
+
+    mapObject.removeLayer(otherLayerGroup);
+    mapObject.removeLayer(theftLayerGroup);
+    mapObject.removeLayer(crashLayerGroup);
+    mapObject.removeLayer(drugLayerGroup);
+    mapObject.removeLayer(adminLayerGroup);
+    mapObject.removeLayer(assaultLayerGroup);
+    
+    var cfg = {
+      // radius should be small ONLY if scaleRadius is true (or small radius is intended)
+      // if scaleRadius is false it will be the constant radius used in pixels
+      "radius": 0.001,
+      "maxOpacity": .5,
+      // scales the radius based on map zoom
+      "scaleRadius": true,
+      // if set to false the heatmap uses the global maximum for colorization
+      // if activated: uses the data maximum within the current map boundaries 
+      //   (there will always be a red spot with useLocalExtremas true)
+      "useLocalExtrema": true,
+      // which field name in your data represents the latitude - default "lat"
+      latField: 'Lat',
+      // which field name in your data represents the longitude - default "lng"
+      lngField: 'Lon',
+      // which field name in your data represents the data value - default "value"
+      valueField : 'Value'
+    };
+  
+    var heatmapLayer = new HeatmapOverlay(cfg);
+    heatmapLayer.setData(heatData);
+    mapObject.addLayer(heatmapLayer);
+    document.getElementById("description-box").innerHTML = "<p><b>Heatmap is only available for full dataset. Additional functionality coming soon!</b></p>"
+  }
+
+  var timeButton = document.getElementById('timeline');
+  timeButton.onclick = function(){
+    console.log('Time Success');
+  }
 };

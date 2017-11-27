@@ -8,98 +8,39 @@
     <link rel="stylesheet" href="leaflet.css" />
     <link rel="stylesheet" href="myStylesheet.css" />
     <!-- Scripts -->
+    <script src="heatmap.js"></script>
     <script src="leaflet.js"></script>
+
+    <script src="leaflet-heatmap.js"></script>
     <script src="googleapis.js"></script>
+
     <script src="completeCrimeData.js"></script>
+    <script src="heatMapData.js"></script>
     <script src="myMain.js"></script>
-    <style>
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color:white;
-        }
 
-        li {
-            float: left;
-        }
-
-        li a,
-        .dropbtn {
-            display: inline-block;
-            color: #bb0000;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-family: "Arial", Helvetica, sans-serif;
-        }
-
-        li a:hover,
-        .dropdown:hover .dropbtn {
-            background-color:#bcbcbc;
-            border-radius: 10px;
-        }
-
-        li.dropdown {
-            display: inline-block;
-        }
-
-        #description-box {
-            position: fixed;
-            width: 32vw;
-            height: 23vh;
-            border: 1px solid black;
-            border-radius: 10px;
-            right: 1vw;
-            text-align: left;
-            padding-left: 20px;
-            color: #bb0000;
-            font-family: "Arial", Helvetica, sans-serif;
-        }
-
-        .toggles {
-            background: #bcbcbc;
-            padding-left: 3px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-right: 7px;
-            border-radius: 10px;
-        }
-
-        .legend {
-            background: #bcbcbc;
-            padding-left: 3px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-right: 7px;
-            border-radius: 10px;
-        }
-
-        .circle {
-            height: 14px;
-            width: 14px;
-            border-radius: 50%;
-            display: inline-block;
-            border: 1.5px solid black;
-        }
-    </style>
 </head>
 
 <body>
     <ul>
         <li>
-            <a href="index.html">Dot Map</a>
-        </li>
-        <li>
-            <a href="#heatMap">Heat Map</a>
-        </li>
-        <li>
-            <a href="timeslider.html">Timeline Map</a>
-        </li>
+            <li id="dotMap">
+                <a>Dot Map</a>
+                </div>
+            </li>
+            <li>
+                <li id="heatMap">
+                    <a>Heat Map</a>
+                    </div>
+                </li>
+                <li>
+                <li id="timeslider">
+                    <a href="timeslider.html">Timeline Map</a>                    
+                    </div>
+                </li>                
     </ul>
-    <div id="mapDivId"></div>
+    <div id="menu"></div>
     <div id="description-box"></div>
+    <div id="mapDivId"></div>
 
 </body>
 
