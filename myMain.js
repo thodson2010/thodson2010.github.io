@@ -79,8 +79,12 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
     opacity: 1,
     fillOpacity: 0.8
   };
+
+  var intro = "<p><b>Please select a point on the map for details.</b></p>"
+  document.getElementById("description-box").innerHTML = intro
   var circleMarker = L.circleMarker(latlng, geojsonMarkerOptions);
   circleMarker.on('click', function () {
+
     geojsonMarkerOptions.color = "#FFF"; //not working, need to fix
     //writing type
     var type = "<p><b>Crime Type: </b>" + feature.properties["Incident_Type"] + "</p>";
@@ -92,7 +96,7 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
     incLocation = incLocation.substring(0, endLoc - 1);
     var location = "<p><b>Location: </b>" + incLocation + "</p>";
     //combining
-    document.getElementById("description-box").innerHTML = description + location + type;
+    document.getElementById("description-box").innerHTML = intro + description + location + type;
   });
   return circleMarker;
 }

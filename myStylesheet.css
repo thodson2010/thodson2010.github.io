@@ -3,9 +3,9 @@
   z-index: -1;
   width: 64vw;
   height: 92vh;
-  border: 1px solid white;
+  border: 1px solid black;
   }
 
   body{
-    background-color: #2D2D2D;
+    background-color: white;
   }
