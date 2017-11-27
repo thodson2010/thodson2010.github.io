@@ -286,7 +286,7 @@ window.onload = function () {
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ["Drug", "Theft", "Traffic", "Administrative", "Criminal Incident", "Other"],
+      labels: ["Drug-Related", "Theft", "Traffic Incident", "Administrative", "Criminal Incident", "Other"],
       datasets: [
         {
           label: "Number of Occurrences",
