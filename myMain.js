@@ -96,7 +96,7 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
     incLocation = incLocation.substring(0, endLoc - 1);
     var location = "<p><b>Location: </b>" + incLocation + "</p>";
     //combining
-    document.getElementById("description-box").innerHTML = intro + description + location + type;
+    document.getElementById("description-box").innerHTML = intro + type + description + location;
   });
   return circleMarker;
 }
@@ -110,7 +110,7 @@ window.onload = function () {
   }).addTo(mapObject);
 
   //Add text to credit box
-  document.getElementById("creditBox").innerHTML = "Created by: Tim Hodson, Sam Mortinger, Chris Kinder, and Arafat Hassan"
+  document.getElementById("creditBox").innerHTML = "<p>Ohio State University Interactive Crime Map</p><p>Created by: Tim Hodson, Sam Mortinger, Chris Kinder, and Arafat Hassan</p>"
 
   //Create each layer group
   var otherLayerGroup = L.geoJSON(crimeData, {
