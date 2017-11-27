@@ -278,9 +278,9 @@ window.onload = function () {
   }
 
   var timeButton = document.getElementById('timeline');
-  timeButton.onclick = function(){
-    console.log('Time Success');
-  }
+  // timeButton.onclick = function(){
+  //   console.log('Time Success');
+  // }
 
   var ctx = document.getElementById("chartContainer").getContext('2d');
   var myChart = new Chart(ctx, {
