@@ -162,6 +162,9 @@ window.onload = function () {
   mapObject.addLayer(drugLayerGroup);
   mapObject.addLayer(adminLayerGroup);
   mapObject.addLayer(assaultLayerGroup);
+  
+  //disable zoom on double click
+  mapObject.doubleClickZoom.disable();
 
 
   //add overlay for toggling crime types, id = "toggles"
