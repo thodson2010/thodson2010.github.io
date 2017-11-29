@@ -139,7 +139,7 @@ window.onload = function () {
   });
 
   //Code for clustering
-  /*var clusterGroup = L.markerClusterGroup({
+    var clusterGroup = L.markerClusterGroup({
     showCoverageOnHover: false,
     zoomToBoundsOnClick: false,
     removeOutsideVisibleBounds: true
@@ -152,16 +152,17 @@ window.onload = function () {
   clusterGroup.addLayer(adminLayerGroup);
   clusterGroup.addLayer(otherLayerGroup);
 
-  mapObject.addLayer(clusterGroup);*/
+  mapObject.addLayer(clusterGroup);
   //end code for clustering
 
   //originally show every layer
-  mapObject.addLayer(otherLayerGroup);
+  /*mapObject.addLayer(otherLayerGroup);
   mapObject.addLayer(theftLayerGroup);
   mapObject.addLayer(crashLayerGroup);
   mapObject.addLayer(drugLayerGroup);
   mapObject.addLayer(adminLayerGroup);
   mapObject.addLayer(assaultLayerGroup);
+  */
   
   //disable zoom on double click
   mapObject.doubleClickZoom.disable();
