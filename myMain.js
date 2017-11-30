@@ -95,8 +95,10 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
     var endLoc = incLocation.indexOf("Ohio");
     incLocation = incLocation.substring(0, endLoc - 1);
     var location = "<p><b>Location: </b>" + incLocation + "</p>";
+    //writing reported date/time
+    var reported = "<p><b>Reported On: </b>" + feature.properties["Reported_On"] + "</p>";
     //combining
-    document.getElementById("description-box").innerHTML = intro + type + description + location;
+    document.getElementById("description-box").innerHTML = intro + type + description + location + reported;
   });
   return circleMarker;
 }
