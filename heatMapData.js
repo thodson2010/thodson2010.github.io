@@ -1,6 +1,7 @@
-﻿var heatData = {
+﻿var filteredHeatData = {
   "max": 10,
-	"data": [{
+	"data": [
+    {
    "Location": "0 E 18th Ohio State Campus, Columbus, Ohio",
    "Latitude": 40.0032075,
    "Longitude": -83.0086761,
@@ -47791,5 +47792,6 @@
    "Incident_Type": "Theft (Of Bicycle)",
    "Description": "Male non-affiliate reports Theft (Of Bicycle) and criminal damaging by an unknown suspect. Case closed.",
    "Value": 1
- }]
+ }
+]
 }

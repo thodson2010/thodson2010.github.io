@@ -2,7 +2,7 @@
   position: fixed;
   z-index: -1;
   width: 64vw;
-  height: 91vh;
+  height: 93vh;
   border: 1px solid black;
   border-radius: 10px;
   }
@@ -42,11 +42,11 @@ li a:hover,
 #description-box {
     position: fixed;
     width: 32vw;
-    height: 26vh;
+    height: 21vh;
     border: 1px solid black;
     background: white;
     border-radius: 10px;
-    top: 24vh;
+    top: 15vh;
     right: 1vw;
     text-align: left;
     padding-left: 20px;
@@ -71,7 +71,7 @@ li a:hover,
 #chartContainer {
     position: fixed;
     width: 32vw;
-    height: 49vh;
+    height: 45vh;
     border: 1px solid black;
     background: white;
     border-radius: 10px;
@@ -109,6 +109,116 @@ li a:hover,
     border: 1.5px solid black;
 }
 
-#heatMap{
-  background: white;
+#theftHeat{
+    visibility: hidden;
+    position: fixed;
+    width: 5vw;
+    height: 3vh;
+    border: 1px solid black;
+    background: white;
+    border-radius: 10px;
+    top: 20vh;
+    right: 27vw;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 10px;
+    color: #bb0000;
+    font-family: "Arial", Helvetica, sans-serif;
+}
+#crashHeat{
+    visibility: hidden;
+    position: fixed;
+    width: 5vw;
+    height: 3vh;
+    border: 1px solid black;
+    background: white;
+    border-radius: 10px;
+    top: 25vh;
+    right: 27vw;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 10px;
+    color: #bb0000;
+    font-family: "Arial", Helvetica, sans-serif;
+}
+#drugHeat{
+    visibility: hidden;
+    position: fixed;
+    width: 5vw;
+    height: 3vh;
+    border: 1px solid black;
+    background: white;
+    border-radius: 10px;
+    top: 30vh;
+    right: 27vw;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 10px;
+    color: #bb0000;
+    font-family: "Arial", Helvetica, sans-serif;
+}
+#adminHeat{
+    visibility: hidden;
+    position: fixed;
+    width: 5vw;
+    height: 3vh;
+    border: 1px solid black;
+    background: white;
+    border-radius: 10px;
+    top: 20vh;
+    right: 20vw;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 10px;
+    color: #bb0000;
+    font-family: "Arial", Helvetica, sans-serif;
+}
+#assaultHeat{
+    visibility: hidden;
+    position: fixed;
+    width: 5vw;
+    height: 3vh;
+    border: 1px solid black;
+    background: white;
+    border-radius: 10px;
+    top: 25vh;
+    right: 20vw;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 10px;
+    color: #bb0000;
+    font-family: "Arial", Helvetica, sans-serif;
+}
+#otherHeat{
+    visibility: hidden;
+    position: fixed;
+    width: 5vw;
+    height: 3vh;
+    border: 1px solid black;
+    background: white;
+    border-radius: 10px;
+    top: 30vh;
+    right: 20vw;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 10px;
+    color: #bb0000;
+    font-family: "Arial", Helvetica, sans-serif;
+}
+
+#allHeat{
+    visibility: hidden;
+    position: fixed;
+    width: 5vw;
+    height: 3vh;
+    border: 1px solid black;
+    background: white;
+    border-radius: 10px;
+    top: 25vh;
+    right: 13vw;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 10px;
+    color: #bb0000;
+    font-family: "Arial", Helvetica, sans-serif;
 }

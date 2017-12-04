@@ -1,5 +1,6 @@
+//Authors: Tim Hodson, Sam Mortinger, Chris Kinder, Arafat Hassan
 "use strict";
-//test
+
 var myFunctionHolder = {};
 //declaring function 1
 myFunctionHolder.addPopups = function (feature, layer) {
@@ -11,7 +12,7 @@ myFunctionHolder.addPopups = function (feature, layer) {
   }
 }
 
-//Filter for each crime type: Need to find way of condensing to one method
+//Filter for each crime type
 myFunctionHolder.filterTheft = function (feature) {
   var type = feature.properties["Incident_Type"];
   if (type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking")) {
@@ -49,8 +50,6 @@ myFunctionHolder.filterOther = function (feature) {
     return true;
   }
 }
-
-
 
 //declaring function 2
 myFunctionHolder.pointToCircle = function (feature, latlng) {
@@ -103,7 +102,7 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
   return circleMarker;
 }
 
-//execute
+//execute onload
 window.onload = function () {
   var mapObject = L.map('mapDivId');
   var baseMap = L.tileLayer('https://api.mapbox.com/styles/v1/thodson2010/cjaheuw43830s2rmoic7sv5ma/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGhvZHNvbjIwMTAiLCJhIjoiY2o2emhxOTI2MDBscjMybWZlM3hiNWI2eSJ9.OuRWPHW_VJ9Ek4_ROgF0Pw', {
@@ -141,7 +140,7 @@ window.onload = function () {
   });
 
   //Code for clustering
-    var clusterGroup = L.markerClusterGroup({
+  var clusterGroup = L.markerClusterGroup({
     showCoverageOnHover: false,
     zoomToBoundsOnClick: false,
     removeOutsideVisibleBounds: true
@@ -165,7 +164,7 @@ window.onload = function () {
   mapObject.addLayer(adminLayerGroup);
   mapObject.addLayer(assaultLayerGroup);
   */
-  
+
   //disable zoom on double click
   mapObject.doubleClickZoom.disable();
 
@@ -220,13 +219,14 @@ window.onload = function () {
   toggle.addTo(mapObject);
   legend.addTo(mapObject);
 
-  //Checks for each toggle
+  //Checks for each toggle on dotmap
   $('#otherToggle').change(function () {
     if (this.checked)
       mapObject.addLayer(otherLayerGroup);
     else
       mapObject.removeLayer(otherLayerGroup);
   });
+
   $('#theftToggle').change(function () {
     if (this.checked)
       mapObject.addLayer(theftLayerGroup);
@@ -261,23 +261,35 @@ window.onload = function () {
       mapObject.removeLayer(assaultLayerGroup);
   });
 
-  var dotButton = document.getElementById('dotMap');
-  dotButton.onclick = function(){
-    console.log('Dot Success');
+  //reload the map when dotMap is selected
+  document.getElementById('dotMap').onclick = function () {
     location.reload();
   }
 
-  var heatButton = document.getElementById('heatMap');
-  heatButton.onclick = function(){
-    console.log('Heat Success');
+  // ************************************************************************************
+  // HeatMap Functions
+  //*************************************************************************************
 
+  document.getElementById('heatMap').onclick = function () {
+
+    //remove the current layers from the map
     mapObject.removeLayer(otherLayerGroup);
     mapObject.removeLayer(theftLayerGroup);
     mapObject.removeLayer(crashLayerGroup);
     mapObject.removeLayer(drugLayerGroup);
     mapObject.removeLayer(adminLayerGroup);
     mapObject.removeLayer(assaultLayerGroup);
+    mapObject.removeLayer(clusterGroup);
 
+    //uncheck all checkboxes
+    $('#otherToggle').attr('checked', false);
+    $('#theftToggle').attr('checked', false);
+    $('#crashToggle').attr('checked', false);
+    $('#drugToggle').attr('checked', false);
+    $('#adminToggle').attr('checked', false);
+    $('#assaultToggle').attr('checked', false);
+
+    //heatmap code from leaflet
     var cfg = {
       // radius should be small ONLY if scaleRadius is true (or small radius is intended)
       // if scaleRadius is false it will be the constant radius used in pixels
@@ -291,23 +303,112 @@ window.onload = function () {
       "useLocalExtrema": false,
       // which field name in your data represents the latitude - default "lat"
       latField: 'Lat',
-      max: 5,
+      max: 'max',
       // which field name in your data represents the longitude - default "lng"
       lngField: 'Lon',
       // which field name in your data represents the data value - default "value"
-      valueField : 'Value'
+      valueField: 'Value'
     };
 
+    //add original full data heatmap
     var heatmapLayer = new HeatmapOverlay(cfg);
-    heatmapLayer.setData(heatData);
+    heatmapLayer.setData(filteredheatData);
     mapObject.addLayer(heatmapLayer);
-    document.getElementById("description-box").innerHTML = "<p><b>Heatmap is only available for full dataset. Additional functionality coming soon!</b></p>"
-  }
 
-  var timeButton = document.getElementById('timeline');
-  // timeButton.onclick = function(){
-  //   console.log('Time Success');
-  // }
+    //Make buttons visiable
+    document.getElementById("theftHeat").style.visibility = "visible";
+    document.getElementById("crashHeat").style.visibility = "visible";
+    document.getElementById("drugHeat").style.visibility = "visible";
+    document.getElementById("adminHeat").style.visibility = "visible";
+    document.getElementById("assaultHeat").style.visibility = "visible";
+    document.getElementById("otherHeat").style.visibility = "visible";
+    document.getElementById("allHeat").style.visibility = "visible";
+
+    //shows only theft heatmap
+    $("#theftHeat").click(function () {
+      mapObject.removeLayer(heatmapLayer)
+      var tempData = $.grep(filteredheatData.data, function (element, index) {
+        return element.Crime_Type == "Theft";
+      });
+      var theftHeat = { "max": 10, "data": tempData }
+      heatmapLayer = new HeatmapOverlay(cfg);
+      heatmapLayer.setData(theftHeat);
+      mapObject.addLayer(heatmapLayer);
+    });
+
+    //shows only crash heatmap
+    $("#crashHeat").click(function () {
+      mapObject.removeLayer(heatmapLayer)
+      var tempData = $.grep(filteredheatData.data, function (element, index) {
+        return element.Crime_Type == "Crash";
+      });
+      var crashHeat = { "max": 10, "data": tempData }
+      heatmapLayer = new HeatmapOverlay(cfg);
+      heatmapLayer.setData(crashHeat);
+      mapObject.addLayer(heatmapLayer);
+    });
+
+    //shows only drug heatmap
+    $("#drugHeat").click(function () {
+      mapObject.removeLayer(heatmapLayer)
+      var tempData = $.grep(filteredheatData.data, function (element, index) {
+        return element.Crime_Type == "Drug";
+      });
+      var drugHeat = { "max": 10, "data": tempData }
+      heatmapLayer = new HeatmapOverlay(cfg);
+      heatmapLayer.setData(drugHeat);
+      mapObject.addLayer(heatmapLayer);
+    });
+
+    //shows only admin heatmap
+    $("#adminHeat").click(function () {
+      mapObject.removeLayer(heatmapLayer)
+      var tempData = $.grep(filteredheatData.data, function (element, index) {
+        return element.Crime_Type == "Admin";
+      });
+      var adminHeat = { "max": 10, "data": tempData }
+      heatmapLayer = new HeatmapOverlay(cfg);
+      heatmapLayer.setData(adminHeat);
+      mapObject.addLayer(heatmapLayer);
+    });
+
+    //shows only assault/criminal heatmap
+    $("#assaultHeat").click(function () {
+      mapObject.removeLayer(heatmapLayer)
+      var tempData = $.grep(filteredheatData.data, function (element, index) {
+        return element.Crime_Type == "Assault";
+      });
+      var assaultHeat = { "max": 10, "data": tempData }
+      heatmapLayer = new HeatmapOverlay(cfg);
+      heatmapLayer.setData(assaultHeat);
+      mapObject.addLayer(heatmapLayer);
+    });
+
+    //shows only "other" heatmap
+    $("#otherHeat").click(function () {
+      mapObject.removeLayer(heatmapLayer)
+      var tempData = $.grep(filteredheatData.data, function (element, index) {
+        return element.Crime_Type == "Other";
+      });
+      var otherHeat = { "max": 10, "data": tempData }
+      heatmapLayer = new HeatmapOverlay(cfg);
+      heatmapLayer.setData(otherHeat);
+      mapObject.addLayer(heatmapLayer);
+    });
+
+    //resets to full data heatmap
+    $("#allHeat").click(function () {
+      mapObject.removeLayer(heatmapLayer)
+      heatmapLayer.setData(filteredheatData);
+      mapObject.addLayer(heatmapLayer);
+    });
+
+    document.getElementById("description-box").innerHTML = "<p><b>Select a crime type here to see heatmap!</b></p>"
+  }//end of heatmap onclick
+
+  //*************************************************************************************
+  // End HeatMap Functions
+  //*************************************************************************************
 
   var ctx = document.getElementById("chartContainer").getContext('2d');
   var myChart = new Chart(ctx, {
@@ -317,8 +418,8 @@ window.onload = function () {
       datasets: [
         {
           label: "Number of Occurrences",
-          backgroundColor: ["#800080", "#008000","#0000FF","#FFFF00","#FF0000","#F0F0F0"],
-          data: [drugLayerGroup.getLayers().length,theftLayerGroup.getLayers().length,crashLayerGroup.getLayers().length,adminLayerGroup.getLayers().length,assaultLayerGroup.getLayers().length,otherLayerGroup.getLayers().length]
+          backgroundColor: ["#800080", "#008000", "#0000FF", "#FFFF00", "#FF0000", "#F0F0F0"],
+          data: [drugLayerGroup.getLayers().length, theftLayerGroup.getLayers().length, crashLayerGroup.getLayers().length, adminLayerGroup.getLayers().length, assaultLayerGroup.getLayers().length, otherLayerGroup.getLayers().length]
         }
       ]
     },
@@ -331,5 +432,5 @@ window.onload = function () {
         text: 'Crime Occurrences Around Campus'
       }
     }
-});
+  });
 };
