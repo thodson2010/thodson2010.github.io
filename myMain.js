@@ -144,8 +144,8 @@ window.onload = function () {
     showCoverageOnHover: false,
     zoomToBoundsOnClick: false,
     removeOutsideVisibleBounds: true
-
   });
+
   clusterGroup.addLayer(theftLayerGroup);
   clusterGroup.addLayer(assaultLayerGroup);
   clusterGroup.addLayer(drugLayerGroup);
@@ -222,43 +222,43 @@ window.onload = function () {
   //Checks for each toggle on dotmap
   $('#otherToggle').change(function () {
     if (this.checked)
-      mapObject.addLayer(otherLayerGroup);
+      clusterGroup.addLayer(otherLayerGroup);
     else
-      mapObject.removeLayer(otherLayerGroup);
+      clusterGroup.removeLayer(otherLayerGroup);
   });
 
   $('#theftToggle').change(function () {
     if (this.checked)
-      mapObject.addLayer(theftLayerGroup);
+      clusterGroup.addLayer(theftLayerGroup);
     else
-      mapObject.removeLayer(theftLayerGroup);
+      clusterGroup.removeLayer(theftLayerGroup);
   });
 
   $('#crashToggle').change(function () {
     if (this.checked)
-      mapObject.addLayer(crashLayerGroup);
+      clusterGroup.addLayer(crashLayerGroup);
     else
-      mapObject.removeLayer(crashLayerGroup);
+      clusterGroup.removeLayer(crashLayerGroup);
   });
 
   $('#drugToggle').change(function () {
     if (this.checked)
-      mapObject.addLayer(drugLayerGroup);
+      clusterGroup.addLayer(drugLayerGroup);
     else
-      mapObject.removeLayer(drugLayerGroup);
+      clusterGroup.removeLayer(drugLayerGroup);
   });
 
   $('#adminToggle').change(function () {
     if (this.checked)
-      mapObject.addLayer(adminLayerGroup);
+      clusterGroup.addLayer(adminLayerGroup);
     else
-      mapObject.removeLayer(adminLayerGroup);
+      clusterGroup.removeLayer(adminLayerGroup);
   });
   $('#assaultToggle').change(function () {
     if (this.checked)
-      mapObject.addLayer(assaultLayerGroup);
+      clusterGroup.addLayer(assaultLayerGroup);
     else
-      mapObject.removeLayer(assaultLayerGroup);
+      clusterGroup.removeLayer(assaultLayerGroup);
   });
 
   //reload the map when dotMap is selected
@@ -453,7 +453,7 @@ window.onload = function () {
     options: {
       legend: { display: false },
       responsive: false,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
       title: {
         display: true,
         text: 'Crime Occurrences Around Campus'
