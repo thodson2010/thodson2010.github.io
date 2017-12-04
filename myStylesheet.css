@@ -71,7 +71,6 @@ li a:hover,
 #chartContainer {
     position: fixed;
     width: 32vw;
-    height: 45vh;
     border: 1px solid black;
     background: white;
     border-radius: 10px;
@@ -125,14 +124,6 @@ li a:hover,
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
 }
-
-#theftHeat:hover{
-    background-color: #bcbcbc;
-    border-radius: 10px;
-    cursor: pointer;
-    cursor: hand;
-}
-
 #crashHeat{
     visibility: hidden;
     position: fixed;
@@ -149,14 +140,6 @@ li a:hover,
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
 }
-
-#crashHeat:hover{
-    background-color: #bcbcbc;
-    border-radius: 10px;
-    cursor: pointer;
-    cursor: hand;
-}
-
 #drugHeat{
     visibility: hidden;
     position: fixed;
@@ -173,14 +156,6 @@ li a:hover,
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
 }
-
-#drugHeat:hover{
-    background-color: #bcbcbc;
-    border-radius: 10px;
-    cursor: pointer;
-    cursor: hand;
-}
-
 #adminHeat{
     visibility: hidden;
     position: fixed;
@@ -197,14 +172,6 @@ li a:hover,
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
 }
-
-#adminHeat:hover{
-    background-color: #bcbcbc;
-    border-radius: 10px;
-    cursor: pointer;
-    cursor: hand;
-}
-
 #assaultHeat{
     visibility: hidden;
     position: fixed;
@@ -221,14 +188,6 @@ li a:hover,
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
 }
-
-#assaultHeat:hover{
-    background-color: #bcbcbc;
-    border-radius: 10px;
-    cursor: pointer;
-    cursor: hand;
-}
-
 #otherHeat{
     visibility: hidden;
     position: fixed;
@@ -246,13 +205,6 @@ li a:hover,
     font-family: "Arial", Helvetica, sans-serif;
 }
 
-#otherHeat:hover{
-    background-color: #bcbcbc;
-    border-radius: 10px;
-    cursor: pointer;
-    cursor: hand;
-}
-
 #allHeat{
     visibility: hidden;
     position: fixed;
@@ -268,11 +220,4 @@ li a:hover,
     padding-top: 10px;
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
-}
-
-#allHeat:hover{
-    background-color: #bcbcbc;
-    border-radius: 10px;
-    cursor: pointer;
-    cursor: hand;
 }
