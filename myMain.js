@@ -315,6 +315,17 @@ window.onload = function () {
     heatmapLayer.setData(filteredheatData);
     mapObject.addLayer(heatmapLayer);
 
+    //resets button background color to white
+    function resetButtons() {
+      document.getElementById("theftHeat").style.backgroundColor = "white";
+      document.getElementById("crashHeat").style.backgroundColor = "white";
+      document.getElementById("drugHeat").style.backgroundColor = "white";
+      document.getElementById("adminHeat").style.backgroundColor = "white";
+      document.getElementById("assaultHeat").style.backgroundColor = "white";
+      document.getElementById("otherHeat").style.backgroundColor = "white";
+      document.getElementById("allHeat").style.backgroundColor = "white";      
+    }
+
     //Make buttons visiable
     document.getElementById("theftHeat").style.visibility = "visible";
     document.getElementById("crashHeat").style.visibility = "visible";
@@ -323,9 +334,13 @@ window.onload = function () {
     document.getElementById("assaultHeat").style.visibility = "visible";
     document.getElementById("otherHeat").style.visibility = "visible";
     document.getElementById("allHeat").style.visibility = "visible";
+    document.getElementById("allHeat").style.backgroundColor = "grey";
+    
 
     //shows only theft heatmap
     $("#theftHeat").click(function () {
+      resetButtons();
+      document.getElementById("theftHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
         return element.Crime_Type == "Theft";
@@ -338,6 +353,8 @@ window.onload = function () {
 
     //shows only crash heatmap
     $("#crashHeat").click(function () {
+      resetButtons();      
+      document.getElementById("crashHeat").style.backgroundColor = "grey";      
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
         return element.Crime_Type == "Crash";
@@ -350,6 +367,8 @@ window.onload = function () {
 
     //shows only drug heatmap
     $("#drugHeat").click(function () {
+      resetButtons();      
+      document.getElementById("drugHeat").style.backgroundColor = "grey";      
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
         return element.Crime_Type == "Drug";
@@ -362,6 +381,8 @@ window.onload = function () {
 
     //shows only admin heatmap
     $("#adminHeat").click(function () {
+      resetButtons();      
+      document.getElementById("adminHeat").style.backgroundColor = "grey";      
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
         return element.Crime_Type == "Admin";
@@ -374,6 +395,8 @@ window.onload = function () {
 
     //shows only assault/criminal heatmap
     $("#assaultHeat").click(function () {
+      resetButtons();      
+      document.getElementById("assaultHeat").style.backgroundColor = "grey";      
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
         return element.Crime_Type == "Assault";
@@ -386,6 +409,8 @@ window.onload = function () {
 
     //shows only "other" heatmap
     $("#otherHeat").click(function () {
+      resetButtons(); 
+      document.getElementById("otherHeat").style.backgroundColor = "grey";      
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
         return element.Crime_Type == "Other";
@@ -398,6 +423,8 @@ window.onload = function () {
 
     //resets to full data heatmap
     $("#allHeat").click(function () {
+      resetButtons();  
+      document.getElementById("allHeat").style.backgroundColor = "grey";      
       mapObject.removeLayer(heatmapLayer)
       heatmapLayer.setData(filteredheatData);
       mapObject.addLayer(heatmapLayer);
