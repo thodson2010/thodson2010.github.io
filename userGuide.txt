@@ -1,30 +1,52 @@
-CrimeTime BETA (updated 12.4.17)
+CrimeTime BETA (updated 12.5.17)
+Developed by Tim Hodson, Sam Mortinger, Chris Kinder, and Arafat Hassan
 Data from January - October 2017
 
-Data obtained from OSU Daily Crime Log
+Data obtained from the OSU Daily Crime Log
 https://dps.osu.edu/daily-crime-log
 
-Additional Resources and Acknowledgements
+RESOURCES AND ACKNOWLEDGEMENTS
 - Beautiful Soup Python Library 
 	https://www.crummy.com/software/BeautifulSoup/
 - Leaflet Library
 	http://leafletjs.com/
+- Leaflet MarkerCluster Plugin
+	https://github.com/Leaflet/Leaflet.markercluster
+- Dynamic Heatmap
+	https://www.patrick-wied.at/static/heatmapjs/
+- Leaflet Heatmap Plugin
+	https://www.patrick-wied.at/static/heatmapjs/plugin-leaflet-layer.html
 
-Instructions
+INSTRUCTIONS
 
-What am I seeing?
+WHAT AM I SEEING?
 
 The application consists of 3 different elements:
-- The map (left) - displays the desired data on a map
-- The description box (top right) - describes various deatils about an indivudal crime
-- The graph (bottom right) - shows totals by crime type ?with current time filtering?
+- The map (left) - 
+	* displays the desired data on a map
+- The month selector box (top right) -
+	* allows the selection of crime in a specific month to be displayed
+- The description/selector box (middle right) -
+	* if dot map is selected, displays useful information of an individual crime occurrence
+	* if heat map is selected, allows the selection of certain crime type to be displayed
+- The graph (bottom right) - 
+	* shows totals by crime type with current time filter
 
-How do I use the app?
+HOW DO I USE THE APP?
 
-- Toolbar
-	Select how the data is displayed on the map (dots of individual crimes or a heat map)
-- Filters
-	Select which types of crimes to be displayed on the dot map
-- Filters (for heat map)
-	When heat map is displayed, filtering options become available for the heat map. Select
-	the desired crime type to be displayed on the heat map
+- Toolbar -
+	* Select how the data is displayed on the map (plots of individual crimes or a heat map)
+- In-Map Filters (when dot map is selected) -
+	* Select which types of crimes to be displayed on the dot map
+- Selector Box Filters (when heat map is selected) -
+	* When heat map is displayed, filtering options become available for the heat map. Select
+	  the desired crime type to be displayed on the heat map
+- Month Selector -
+	* Select month of crime data to be displayed
+	* Combination of month and crime type filtering is possible for both map types
+
+PROBLEMS TO BE FIXED
+
+- Chart Bug - 
+	* depending on position of mouse and where it hovers, the chart sporadically changes scale
+
