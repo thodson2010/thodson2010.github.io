@@ -410,21 +410,6 @@ window.onload = function () {
     document.getElementById("allHeat").style.visibility = "visible";
     document.getElementById("allHeat").style.backgroundColor = "grey";
 
-
-    //shows only theft heatmap
-    $("#theftHeat").click(function () {
-      resetButtons();
-      document.getElementById("theftHeat").style.backgroundColor = "grey";
-      mapObject.removeLayer(heatmapLayer)
-      var tempData = $.grep(filteredheatData.data, function (element, index) {
-        return element.Crime_Type == "Theft";
-      });
-      var theftHeat = { "max": 10, "data": tempData }
-      heatmapLayer = new HeatmapOverlay(cfg);
-      heatmapLayer.setData(theftHeat);
-      mapObject.addLayer(heatmapLayer);
-    });
-
     //shows only theft heatmap
     $("#theftHeat").click(function () {
       var tempMonth = getMonth();
@@ -432,9 +417,14 @@ window.onload = function () {
       document.getElementById("theftHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        return (element.Crime_Type == "Theft" && element.Month == tempMonth);
+        if (tempMonth === ""){
+          return element.Crime_Type == "Theft";
+        }
+        else{
+          return element.Crime_Type == "Theft" && element.Month == tempMonth;
+        }
       });
-      var theftHeat = { "max": 10, "data": tempData }
+      var theftHeat = { "max": 5, "data": tempData }
       heatmapLayer = new HeatmapOverlay(cfg);
       heatmapLayer.setData(theftHeat);
       mapObject.addLayer(heatmapLayer);
@@ -447,9 +437,14 @@ window.onload = function () {
       document.getElementById("crashHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        return element.Crime_Type == "Crash" && element.Month == tempMonth;
+        if (tempMonth === ""){
+          return element.Crime_Type == "Crash";
+        }
+        else{
+          return element.Crime_Type == "Crash" && element.Month == tempMonth;
+        }
       });
-      var crashHeat = { "max": 10, "data": tempData }
+      var crashHeat = { "max": 5, "data": tempData }
       heatmapLayer = new HeatmapOverlay(cfg);
       heatmapLayer.setData(crashHeat);
       mapObject.addLayer(heatmapLayer);
@@ -462,9 +457,14 @@ window.onload = function () {
       document.getElementById("drugHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        return element.Crime_Type == "Drug" && element.Month == tempMonth;
+        if (tempMonth === ""){
+          return element.Crime_Type == "Drug";
+        }
+        else{
+          return element.Crime_Type == "Drug" && element.Month == tempMonth;
+        }
       });
-      var drugHeat = { "max": 10, "data": tempData }
+      var drugHeat = { "max": 5, "data": tempData }
       heatmapLayer = new HeatmapOverlay(cfg);
       heatmapLayer.setData(drugHeat);
       mapObject.addLayer(heatmapLayer);
@@ -477,9 +477,14 @@ window.onload = function () {
       document.getElementById("adminHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        return element.Crime_Type == "Admin" && element.Month == tempMonth;
+        if (tempMonth === ""){
+          return element.Crime_Type == "Admin";
+        }
+        else{
+          return element.Crime_Type == "Admin" && element.Month == tempMonth;
+        }
       });
-      var adminHeat = { "max": 10, "data": tempData }
+      var adminHeat = { "max": 5, "data": tempData }
       heatmapLayer = new HeatmapOverlay(cfg);
       heatmapLayer.setData(adminHeat);
       mapObject.addLayer(heatmapLayer);
@@ -492,9 +497,15 @@ window.onload = function () {
       document.getElementById("assaultHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        return element.Crime_Type == "Assault" && element.Month == tempMonth;
+        if (tempMonth === ""){
+          return element.Crime_Type == "Assault";
+        }
+        else{
+          return element.Crime_Type == "Assault" && element.Month == tempMonth;
+        }
       });
-      var assaultHeat = { "max": 10, "data": tempData }
+
+      var assaultHeat = { "max": 5, "data": tempData }
       heatmapLayer = new HeatmapOverlay(cfg);
       heatmapLayer.setData(assaultHeat);
       mapObject.addLayer(heatmapLayer);
@@ -507,9 +518,14 @@ window.onload = function () {
       document.getElementById("otherHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        return element.Crime_Type == "Other" && element.Month == tempMonth;
+        if (tempMonth === ""){
+          return element.Crime_Type == "Other";
+        }
+        else{
+          return element.Crime_Type == "Other" && element.Month == tempMonth;
+        }
       });
-      var otherHeat = { "max": 10, "data": tempData }
+      var otherHeat = { "max": 5, "data": tempData }
       heatmapLayer = new HeatmapOverlay(cfg);
       heatmapLayer.setData(otherHeat);
       mapObject.addLayer(heatmapLayer);
@@ -518,14 +534,22 @@ window.onload = function () {
 
     //resets to full data heatmap
     $("#allHeat").click(function () {
+      var tempMonth = getMonth();
       resetButtons();
       document.getElementById("allHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
-      heatmapLayer.setData(filteredheatData);
+      var tempData = $.grep(filteredheatData.data, function (element, index) {
+        if (tempMonth != ""){
+          return element.Month == tempMonth;
+        }
+      });
+      var allMonth = { "max": 5, "data": tempData }
+      heatmapLayer = new HeatmapOverlay(cfg);
+      heatmapLayer.setData(allMonth);
       mapObject.addLayer(heatmapLayer);
     });
 
-    document.getElementById("description-box").innerHTML = "<p><b>Select a crime type here to see heatmap!</b></p>"
+    document.getElementById("description-box").innerHTML = "<p><b>Select a month above, then select a button to see a heatmap for that month.</b></p>"
   }//end of heatmap onclick
 
   //*************************************************************************************

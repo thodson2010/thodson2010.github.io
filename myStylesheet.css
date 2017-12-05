@@ -42,7 +42,7 @@ li a:hover,
 #description-box {
     position: fixed;
     width: 32vw;
-    height: 21vh;
+    height: 28vh;
     border: 1px solid black;
     background: white;
     border-radius: 10px;
@@ -61,8 +61,8 @@ li a:hover,
     border: 1px solid black;
     background: white;
     border-radius: 10px;
-    top: 15vh;
-    right: 1vw;
+    top: 5.5vh;
+    right: 23vw;
     text-align: left;
     padding-left: 20px;
     color: #bb0000;
@@ -90,7 +90,7 @@ li a:hover,
     background: white;
     border-radius: 10px;
     right: 1vw;
-    bottom: 16vh;
+    bottom: 20vh;
     text-align: left;
     padding-left: 20px;
     color: #bb0000;
@@ -131,7 +131,7 @@ li a:hover,
     border: 1px solid black;
     background: white;
     border-radius: 10px;
-    top: 20vh;
+    top: 24vh;
     right: 27vw;
     text-align: left;
     padding-left: 20px;
@@ -154,7 +154,7 @@ li a:hover,
     border: 1px solid black;
     background: white;
     border-radius: 10px;
-    top: 25vh;
+    top: 29vh;
     right: 27vw;
     text-align: left;
     padding-left: 20px;
@@ -177,7 +177,7 @@ li a:hover,
     border: 1px solid black;
     background: white;
     border-radius: 10px;
-    top: 30vh;
+    top: 34vh;
     right: 27vw;
     text-align: left;
     padding-left: 20px;
@@ -200,7 +200,7 @@ li a:hover,
     border: 1px solid black;
     background: white;
     border-radius: 10px;
-    top: 20vh;
+    top: 24vh;
     right: 20vw;
     text-align: left;
     padding-left: 20px;
@@ -223,7 +223,7 @@ li a:hover,
     border: 1px solid black;
     background: white;
     border-radius: 10px;
-    top: 25vh;
+    top: 29vh;
     right: 20vw;
     text-align: left;
     padding-left: 20px;
@@ -246,7 +246,7 @@ li a:hover,
     border: 1px solid black;
     background: white;
     border-radius: 10px;
-    top: 30vh;
+    top: 34vh;
     right: 20vw;
     text-align: left;
     padding-left: 20px;
@@ -269,7 +269,7 @@ li a:hover,
     border: 1px solid black;
     background: white;
     border-radius: 10px;
-    top: 25vh;
+    top: 29vh;
     right: 13vw;
     text-align: left;
     padding-left: 20px;
