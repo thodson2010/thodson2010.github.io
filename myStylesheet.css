@@ -37,6 +37,8 @@ li a:hover,
 .dropdown:hover .dropbtn {
     background-color:#bcbcbc;
     border-radius: 10px;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #description-box {
