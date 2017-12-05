@@ -317,14 +317,16 @@ window.onload = function () {
 
     //resets button background color to white
     function resetButtons() {
-      document.getElementById("theftHeat").style.backgroundColor = "white";
-      document.getElementById("crashHeat").style.backgroundColor = "white";
-      document.getElementById("drugHeat").style.backgroundColor = "white";
-      document.getElementById("adminHeat").style.backgroundColor = "white";
-      document.getElementById("assaultHeat").style.backgroundColor = "white";
-      document.getElementById("otherHeat").style.backgroundColor = "white";
-      document.getElementById("allHeat").style.backgroundColor = "white";      
+      document.getElementById("theftHeat").style.backgroundColor = "transparent";
+      document.getElementById("crashHeat").style.backgroundColor = "transparent";
+      document.getElementById("drugHeat").style.backgroundColor = "transparent";
+      document.getElementById("adminHeat").style.backgroundColor = "transparent";
+      document.getElementById("assaultHeat").style.backgroundColor = "transparent";
+      document.getElementById("otherHeat").style.backgroundColor = "transparent";
+      document.getElementById("allHeat").style.backgroundColor = "transparent";      
     }
+    
+    resetButtons();
 
     //Make buttons visiable
     document.getElementById("theftHeat").style.visibility = "visible";
