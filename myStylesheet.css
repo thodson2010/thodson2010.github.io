@@ -124,6 +124,13 @@ li a:hover,
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
 }
+
+#theftHeat:hover{
+    border-width: 3px;
+    cursor: pointer;
+    cursor: hand;
+}
+
 #crashHeat{
     visibility: hidden;
     position: fixed;
@@ -140,6 +147,13 @@ li a:hover,
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
 }
+
+#crashHeat:hover{
+    border-width: 3px;
+    cursor: pointer;
+    cursor: hand;
+}
+
 #drugHeat{
     visibility: hidden;
     position: fixed;
@@ -156,6 +170,13 @@ li a:hover,
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
 }
+
+#drugHeat:hover{
+    border-width: 3px;
+    cursor: pointer;
+    cursor: hand;
+}
+
 #adminHeat{
     visibility: hidden;
     position: fixed;
@@ -172,6 +193,13 @@ li a:hover,
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
 }
+
+#adminHeat:hover{
+    border-width: 3px;
+    cursor: pointer;
+    cursor: hand;
+}
+
 #assaultHeat{
     visibility: hidden;
     position: fixed;
@@ -188,6 +216,13 @@ li a:hover,
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
 }
+
+#assaultHeat:hover{
+    border-width: 3px;
+    cursor: pointer;
+    cursor: hand;
+}
+
 #otherHeat{
     visibility: hidden;
     position: fixed;
@@ -205,6 +240,12 @@ li a:hover,
     font-family: "Arial", Helvetica, sans-serif;
 }
 
+#otherHeat:hover{
+    border-width: 3px;
+    cursor: pointer;
+    cursor: hand;
+}
+
 #allHeat{
     visibility: hidden;
     position: fixed;
@@ -220,4 +261,10 @@ li a:hover,
     padding-top: 10px;
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
+}
+
+#allHeat:hover{
+    border-width: 3px;
+    cursor: pointer;
+    cursor: hand;
 }
