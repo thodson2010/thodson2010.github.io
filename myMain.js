@@ -12,7 +12,7 @@ function getMonth(month) {
   return myMonth
 }
 
-$(document).on('change','#monthValue',function(){
+$(document).on('change', '#monthValue', function () {
   var myMonth1 = ($(this).val());
   console.log(myMonth1);
   myMonth = getMonth(myMonth1);
@@ -174,7 +174,7 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
   return circleMarker;
 }
 
-myFunctionHolder.setLayers = function(data, map) {
+myFunctionHolder.setLayers = function (data, map) {
   theftLayerGroup, adminLayerGroup, crashLayerGroup, drugLayerGroup, assaultLayerGroup, otherLayerGroup = {};
   //Create each layer group
   otherLayerGroup = L.geoJSON(data, {
@@ -244,7 +244,7 @@ myFunctionHolder.setLayers = function(data, map) {
         yAxes: [{id: 'y-axis-1', type: 'linear', position: 'left', ticks: {min: 0, max: 1000}}]
       }, */
       responsive: false,
-      hover: {mode: null},
+      hover: { mode: null },
       maintainAspectRatio: true,
       title: {
         display: true,
@@ -275,6 +275,7 @@ window.onload = function () {
   //add overlay for toggling crime types, id = "toggles"
   var toggle = L.control({ position: 'bottomleft' });
   var legend = L.control({ position: 'bottomright' });
+  var heatLegend = L.control({ position: 'bottomright' });
 
   //Adds toggles to map
   toggle.onAdd = function (map) {
@@ -297,6 +298,20 @@ window.onload = function () {
 
     return div;
   };
+
+  heatLegend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'heatLegend'),
+      title = [];
+    div.innerHTML += title.push('<strong>Number</strong>');
+    div.innerHTML += title.push('<strong>Crimes</strong>');
+    div.innerHTML += title.push('10');
+    div.innerHTML += title.push('<i class="heatGradient"></i>');
+    div.innerHTML += title.push('0');
+
+    div.innerHTML = title.join('<br>');
+
+    return div;
+  }
 
   function getColor(d) {
     switch (d) {
@@ -384,13 +399,10 @@ window.onload = function () {
     mapObject.removeLayer(assaultLayerGroup);
     mapObject.removeLayer(clusterGroup);
 
-    //uncheck all checkboxes
-    $('#otherToggle').attr('checked', false);
-    $('#theftToggle').attr('checked', false);
-    $('#crashToggle').attr('checked', false);
-    $('#drugToggle').attr('checked', false);
-    $('#adminToggle').attr('checked', false);
-    $('#assaultToggle').attr('checked', false);
+    //remove dot map filters and legends and add heat map legend
+    mapObject.removeControl(toggle);
+    mapObject.removeControl(legend);
+    heatLegend.addTo(mapObject);
 
     //heatmap code from leaflet
     var cfg = {
@@ -448,10 +460,10 @@ window.onload = function () {
       document.getElementById("theftHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        if (tempMonth === "Empty"){
+        if (tempMonth === "Empty") {
           return element.Crime_Type == "Theft";
         }
-        else{
+        else {
           return element.Crime_Type == "Theft" && element.Month == tempMonth;
         }
       });
@@ -468,10 +480,10 @@ window.onload = function () {
       document.getElementById("crashHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        if (tempMonth === "Empty"){
+        if (tempMonth === "Empty") {
           return element.Crime_Type == "Crash";
         }
-        else{
+        else {
           return element.Crime_Type == "Crash" && element.Month == tempMonth;
         }
       });
@@ -488,10 +500,10 @@ window.onload = function () {
       document.getElementById("drugHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        if (tempMonth === "Empty"){
+        if (tempMonth === "Empty") {
           return element.Crime_Type == "Drug";
         }
-        else{
+        else {
           return element.Crime_Type == "Drug" && element.Month == tempMonth;
         }
       });
@@ -508,10 +520,10 @@ window.onload = function () {
       document.getElementById("adminHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        if (tempMonth === "Empty"){
+        if (tempMonth === "Empty") {
           return element.Crime_Type == "Admin";
         }
-        else{
+        else {
           return element.Crime_Type == "Admin" && element.Month == tempMonth;
         }
       });
@@ -528,10 +540,10 @@ window.onload = function () {
       document.getElementById("assaultHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        if (tempMonth === "Empty"){
+        if (tempMonth === "Empty") {
           return element.Crime_Type == "Assault";
         }
-        else{
+        else {
           return element.Crime_Type == "Assault" && element.Month == tempMonth;
         }
       });
@@ -549,10 +561,10 @@ window.onload = function () {
       document.getElementById("otherHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        if (tempMonth === "Empty"){
+        if (tempMonth === "Empty") {
           return element.Crime_Type == "Other";
         }
-        else{
+        else {
           return element.Crime_Type == "Other" && element.Month == tempMonth;
         }
       });
@@ -570,10 +582,10 @@ window.onload = function () {
       document.getElementById("allHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        if (tempMonth != "Empty"){
+        if (tempMonth != "Empty") {
           return element.Month == tempMonth;
         }
-        else{
+        else {
           return element
         }
       });
@@ -590,5 +602,5 @@ window.onload = function () {
   // End HeatMap Functions
   //*************************************************************************************
 
-  
+
 };
