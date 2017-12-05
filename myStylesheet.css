@@ -123,6 +123,15 @@ li a:hover,
     border: 1.5px solid black;
 }
 
+.heatGradient {
+    background: linear-gradient(red, yellow, green, blue);
+    height: 40px;
+    width: 14px;
+    display: inline-block;
+    border: 1.5px solid black;
+    opacity: .6;
+}
+
 #theftHeat{
     visibility: hidden;
     position: fixed;
