@@ -12,36 +12,36 @@ function getMonth(month) {
   return myMonth
 }
 
-$("#monthValue").change(function () {
+$(document).on('change','#monthValue',function(){
   var myMonth1 = ($(this).val());
-  console.log(myMonth1)
+  console.log(myMonth1);
   myMonth = getMonth(myMonth1);
-  clusterGroup.removeLayer(theftLayerGroup);
-  clusterGroup.addLayer(theftLayerGroup);
-
+  mapObject.removeLayer(clusterGroup);
+  myFunctionHolder.setLayers(crimeData, mapObject);
 });
 
+var theftLayerGroup;
+var adminLayerGroup;
+var assaultLayerGroup;
+var crashLayerGroup;
+var drugLayerGroup;
+var otherLayerGroup;
+var clusterGroup;
+var mapObject;
+var myChart;
+var theftLength, drugLength, adminLength, assaultLength, crashLength, otherLength;
 
 
 //************************************************************************************
 //End Date Filter
 //*************************************************************************************
 var myFunctionHolder = {};
-//declaring function 1
-myFunctionHolder.addPopups = function (feature, layer) {
-  if (feature.properties && feature.properties.Location) {
-    var incLocation = feature.properties.Location
-    var endLoc = incLocation.indexOf("Ohio");
-    incLocation = incLocation.substring(0, endLoc - 1);
-    //layer.bindPopup("<b>Crime Type : </b>" + feature.properties["Incident Type"] + "<br><b> Location : </b>" + incLocation);
-  }
-}
 
 //Filter for each crime type
 myFunctionHolder.filterTheft = function (feature) {
   var type = feature.properties["Incident_Type"];
-  if (!myMonth === "") {
-    if (type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking") && feature.properties["Month"] === myMonth) {
+  if (myMonth != "Empty") {
+    if ((type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking")) && feature.properties["Month"] === myMonth) {
       return true;
     }
   }
@@ -54,7 +54,7 @@ myFunctionHolder.filterTheft = function (feature) {
 }
 myFunctionHolder.filterCrash = function (feature) {
   var type = feature.properties["Incident_Type"];
-  if (!myMonth === "") {
+  if (myMonth != "Empty") {
     if (type.includes("Crash") && feature.properties["Month"] === myMonth) {
       return true;
     }
@@ -67,7 +67,7 @@ myFunctionHolder.filterCrash = function (feature) {
 }
 myFunctionHolder.filterDrug = function (feature) {
   var type = feature.properties["Incident_Type"];
-  if (!myMonth === "") {
+  if (myMonth != "Empty") {
     if (type.includes("Drug") && feature.properties["Month"] === myMonth) {
       return true;
     }
@@ -80,8 +80,8 @@ myFunctionHolder.filterDrug = function (feature) {
 }
 myFunctionHolder.filterAdmin = function (feature) {
   var type = feature.properties["Incident_Type"];
-  if (!myMonth === "") {
-    if (type.includes("Administrative") || type.includes("Assist") && feature.properties["Month"] === myMonth) {
+  if (myMonth != "Empty") {
+    if ((type.includes("Administrative") || type.includes("Assist")) && feature.properties["Month"] === myMonth) {
       return true;
     }
   }
@@ -94,8 +94,8 @@ myFunctionHolder.filterAdmin = function (feature) {
 
 myFunctionHolder.filterAssault = function (feature) {
   var type = feature.properties["Incident_Type"];
-  if (!myMonth === "") {
-    if (type.includes("Assault") || type.includes("Criminal") && feature.properties["Month"] === myMonth) {
+  if (myMonth != "Empty") {
+    if ((type.includes("Assault") || type.includes("Criminal")) && feature.properties["Month"] === myMonth) {
       return true;
     }
   }
@@ -108,8 +108,8 @@ myFunctionHolder.filterAssault = function (feature) {
 
 myFunctionHolder.filterOther = function (feature) {
   var type = feature.properties["Incident_Type"];
-  if (!myMonth === "") {
-    if (!type.includes("Assault") && !type.includes("Criminal") && !type.includes("Administrative") && !type.includes("Assist") && !type.includes("Drug") && !type.includes("Crash") && !type.includes("Theft") && feature.properties["Month"] === myMonth) {
+  if (myMonth != "Empty") {
+    if ((!type.includes("Assault") && !type.includes("Criminal") && !type.includes("Administrative") && !type.includes("Assist") && !type.includes("Drug") && !type.includes("Crash") && !type.includes("Theft")) && feature.properties["Month"] === myMonth) {
       return true;
     }
   }
@@ -174,47 +174,38 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
   return circleMarker;
 }
 
-//execute onload
-window.onload = function () {
-  var mapObject = L.map('mapDivId');
-  var baseMap = L.tileLayer('https://api.mapbox.com/styles/v1/thodson2010/cjaheuw43830s2rmoic7sv5ma/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGhvZHNvbjIwMTAiLCJhIjoiY2o2emhxOTI2MDBscjMybWZlM3hiNWI2eSJ9.OuRWPHW_VJ9Ek4_ROgF0Pw', {
-    maxZoom: 18,
-    attribution: "&copy; <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> &copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
-  }).addTo(mapObject);
-
-  //Add text to credit box
-  document.getElementById("creditBox").innerHTML = "<p>Ohio State University Interactive Crime Map</p><p>Created by: Tim Hodson, Sam Mortinger, Chris Kinder, and Arafat Hassan</p>"
-
+myFunctionHolder.setLayers = function(data, map) {
+  theftLayerGroup, adminLayerGroup, crashLayerGroup, drugLayerGroup, assaultLayerGroup, otherLayerGroup = {};
   //Create each layer group
-  var otherLayerGroup = L.geoJSON(crimeData, {
+  otherLayerGroup = L.geoJSON(data, {
     filter: myFunctionHolder.filterOther,
     pointToLayer: myFunctionHolder.pointToCircle
   });
-  var theftLayerGroup = L.geoJSON(crimeData, {
+  theftLayerGroup = L.geoJSON(data, {
     filter: myFunctionHolder.filterTheft,
     pointToLayer: myFunctionHolder.pointToCircle
   });
-  var crashLayerGroup = L.geoJSON(crimeData, {
+  crashLayerGroup = L.geoJSON(data, {
     filter: myFunctionHolder.filterCrash,
     pointToLayer: myFunctionHolder.pointToCircle
   });
-  var drugLayerGroup = L.geoJSON(crimeData, {
+  drugLayerGroup = L.geoJSON(data, {
     filter: myFunctionHolder.filterDrug,
     pointToLayer: myFunctionHolder.pointToCircle
   });
-  var adminLayerGroup = L.geoJSON(crimeData, {
+  adminLayerGroup = L.geoJSON(data, {
     filter: myFunctionHolder.filterAdmin,
     pointToLayer: myFunctionHolder.pointToCircle
   });
-  var assaultLayerGroup = L.geoJSON(crimeData, {
+  assaultLayerGroup = L.geoJSON(data, {
     filter: myFunctionHolder.filterAssault,
     pointToLayer: myFunctionHolder.pointToCircle
   });
 
   //Code for clustering
-  var clusterGroup = L.markerClusterGroup({
-    showCoverageOnHover: false,
-    zoomToBoundsOnClick: false,
+  clusterGroup = L.markerClusterGroup({
+    showCoverageOnHover: true,
+    zoomToBoundsOnClick: true,
     removeOutsideVisibleBounds: true
   });
 
@@ -225,17 +216,57 @@ window.onload = function () {
   clusterGroup.addLayer(adminLayerGroup);
   clusterGroup.addLayer(otherLayerGroup);
 
-  mapObject.addLayer(clusterGroup);
-  //end code for clustering
+  drugLength = drugLayerGroup.getLayers().length;
+  theftLength = theftLayerGroup.getLayers().length;
+  crashLength = crashLayerGroup.getLayers().length;
+  adminLength = adminLayerGroup.getLayers().length;
+  assaultLength = assaultLayerGroup.getLayers().length;
+  otherLength = otherLayerGroup.getLayers().length;
 
-  //originally show every layer
-  /*mapObject.addLayer(otherLayerGroup);
-  mapObject.addLayer(theftLayerGroup);
-  mapObject.addLayer(crashLayerGroup);
-  mapObject.addLayer(drugLayerGroup);
-  mapObject.addLayer(adminLayerGroup);
-  mapObject.addLayer(assaultLayerGroup);
-  */
+  map.addLayer(clusterGroup);
+
+  var ctx = document.getElementById("chartContainer").getContext('2d');
+  myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ["Drug-Related", "Theft", "Traffic Incident", "Administrative", "Criminal Incident", "Other"],
+      datasets: [
+        {
+          label: "Number of Occurrences",
+          backgroundColor: ["#800080", "#008000", "#0000FF", "#FFFF00", "#FF0000", "#F0F0F0"],
+          data: [drugLength, theftLength, crashLength, adminLength, assaultLength, otherLength]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      /* scales: {
+        yAxes: [{id: 'y-axis-1', type: 'linear', position: 'left', ticks: {min: 0, max: 1000}}]
+      }, */
+      responsive: false,
+      hover: {mode: null},
+      maintainAspectRatio: true,
+      title: {
+        display: true,
+        text: 'Crime Occurrences Around Campus'
+      }
+    }
+  });
+}
+
+//execute onload
+window.onload = function () {
+  mapObject = L.map('mapDivId');
+  var baseMap = L.tileLayer('https://api.mapbox.com/styles/v1/thodson2010/cjaheuw43830s2rmoic7sv5ma/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGhvZHNvbjIwMTAiLCJhIjoiY2o2emhxOTI2MDBscjMybWZlM3hiNWI2eSJ9.OuRWPHW_VJ9Ek4_ROgF0Pw', {
+    maxZoom: 18,
+    attribution: "&copy; <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> &copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
+  }).addTo(mapObject);
+
+  //Add text to credit box
+  document.getElementById("creditBox").innerHTML = "<p>Ohio State University Interactive Crime Map</p><p>Created by: Tim Hodson, Sam Mortinger, Chris Kinder, and Arafat Hassan</p>"
+
+  //add data to map
+  myFunctionHolder.setLayers(crimeData, mapObject);
 
   //disable zoom on double click
   mapObject.doubleClickZoom.disable();
@@ -559,27 +590,5 @@ window.onload = function () {
   // End HeatMap Functions
   //*************************************************************************************
 
-  var ctx = document.getElementById("chartContainer").getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ["Drug-Related", "Theft", "Traffic Incident", "Administrative", "Criminal Incident", "Other"],
-      datasets: [
-        {
-          label: "Number of Occurrences",
-          backgroundColor: ["#800080", "#008000", "#0000FF", "#FFFF00", "#FF0000", "#F0F0F0"],
-          data: [drugLayerGroup.getLayers().length, theftLayerGroup.getLayers().length, crashLayerGroup.getLayers().length, adminLayerGroup.getLayers().length, assaultLayerGroup.getLayers().length, otherLayerGroup.getLayers().length]
-        }
-      ]
-    },
-    options: {
-      legend: { display: false },
-      responsive: false,
-      maintainAspectRatio: true,
-      title: {
-        display: true,
-        text: 'Crime Occurrences Around Campus'
-      }
-    }
-  });
+  
 };
