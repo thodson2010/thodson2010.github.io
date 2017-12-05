@@ -1,6 +1,31 @@
 //Authors: Tim Hodson, Sam Mortinger, Chris Kinder, Arafat Hassan
 "use strict";
 
+
+// ************************************************************************************
+// Date Filter
+//*************************************************************************************
+var myMonth = ""
+function getMonth(month) {
+  var e = document.getElementById('monthValue');
+  var myMonth = e.options[e.selectedIndex].value;
+  return myMonth
+}
+
+$("#monthValue").change(function () {
+  var myMonth1 = ($(this).val());
+  console.log(myMonth1)
+  myMonth = getMonth(myMonth1);
+  clusterGroup.removeLayer(theftLayerGroup);
+  clusterGroup.addLayer(theftLayerGroup);
+
+});
+
+
+
+//************************************************************************************
+//End Date Filter
+//*************************************************************************************
 var myFunctionHolder = {};
 //declaring function 1
 myFunctionHolder.addPopups = function (feature, layer) {
@@ -15,41 +40,88 @@ myFunctionHolder.addPopups = function (feature, layer) {
 //Filter for each crime type
 myFunctionHolder.filterTheft = function (feature) {
   var type = feature.properties["Incident_Type"];
-  if (type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking")) {
-    return true;
+  if (!myMonth === "") {
+    if (type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking") && feature.properties["Month"] === myMonth) {
+      return true;
+    }
   }
+  else {
+    if (type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking")) {
+      return true;
+    }
+  }
+
 }
 myFunctionHolder.filterCrash = function (feature) {
   var type = feature.properties["Incident_Type"];
-  if (type.includes("Crash")) {
-    return true;
+  if (!myMonth === "") {
+    if (type.includes("Crash") && feature.properties["Month"] === myMonth) {
+      return true;
+    }
+  }
+  else {
+    if (type.includes("Crash")) {
+      return true;
+    }
   }
 }
 myFunctionHolder.filterDrug = function (feature) {
   var type = feature.properties["Incident_Type"];
-  if (type.includes("Drug")) {
-    return true;
+  if (!myMonth === "") {
+    if (type.includes("Drug") && feature.properties["Month"] === myMonth) {
+      return true;
+    }
+  }
+  else {
+    if (type.includes("Drug")) {
+      return true;
+    }
   }
 }
 myFunctionHolder.filterAdmin = function (feature) {
   var type = feature.properties["Incident_Type"];
-  if (type.includes("Administrative") || type.includes("Assist")) {
-    return true;
+  if (!myMonth === "") {
+    if (type.includes("Administrative") || type.includes("Assist") && feature.properties["Month"] === myMonth) {
+      return true;
+    }
+  }
+  else {
+    if (type.includes("Administrative") || type.includes("Assist")) {
+      return true;
+    }
   }
 }
+
 myFunctionHolder.filterAssault = function (feature) {
   var type = feature.properties["Incident_Type"];
-  if (type.includes("Assault") || type.includes("Criminal")) {
-    return true;
+  if (!myMonth === "") {
+    if (type.includes("Assault") || type.includes("Criminal") && feature.properties["Month"] === myMonth) {
+      return true;
+    }
+  }
+  else {
+    if (type.includes("Assault") || type.includes("Criminal")) {
+      return true;
+    }
   }
 }
+
 myFunctionHolder.filterOther = function (feature) {
   var type = feature.properties["Incident_Type"];
-  if (!type.includes("Assault") && !type.includes("Criminal") && !type.includes("Administrative") && !type.includes("Assist") && !type.includes("Drug") && !type.includes("Crash") && !type.includes("Theft")
-    && !type.includes("Burglary") && !type.includes("Breaking")) {
-    return true;
+  if (!myMonth === "") {
+    if (!type.includes("Assault") && !type.includes("Criminal") && !type.includes("Administrative") && !type.includes("Assist") && !type.includes("Drug") && !type.includes("Crash") && !type.includes("Theft") && feature.properties["Month"] === myMonth) {
+      return true;
+    }
+  }
+  else {
+
+    if (!type.includes("Assault") && !type.includes("Criminal") && !type.includes("Administrative") && !type.includes("Assist") && !type.includes("Drug") && !type.includes("Crash") && !type.includes("Theft")
+      && !type.includes("Burglary") && !type.includes("Breaking")) {
+      return true;
+    }
   }
 }
+
 
 //declaring function 2
 myFunctionHolder.pointToCircle = function (feature, latlng) {
@@ -323,9 +395,9 @@ window.onload = function () {
       document.getElementById("adminHeat").style.backgroundColor = "transparent";
       document.getElementById("assaultHeat").style.backgroundColor = "transparent";
       document.getElementById("otherHeat").style.backgroundColor = "transparent";
-      document.getElementById("allHeat").style.backgroundColor = "transparent";      
+      document.getElementById("allHeat").style.backgroundColor = "transparent";
     }
-    
+
     resetButtons();
 
     //Make buttons visiable
@@ -337,7 +409,7 @@ window.onload = function () {
     document.getElementById("otherHeat").style.visibility = "visible";
     document.getElementById("allHeat").style.visibility = "visible";
     document.getElementById("allHeat").style.backgroundColor = "grey";
-    
+
 
     //shows only theft heatmap
     $("#theftHeat").click(function () {
@@ -353,13 +425,29 @@ window.onload = function () {
       mapObject.addLayer(heatmapLayer);
     });
 
-    //shows only crash heatmap
-    $("#crashHeat").click(function () {
-      resetButtons();      
-      document.getElementById("crashHeat").style.backgroundColor = "grey";      
+    //shows only theft heatmap
+    $("#theftHeat").click(function () {
+      var tempMonth = getMonth();
+      resetButtons();
+      document.getElementById("theftHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        return element.Crime_Type == "Crash";
+        return (element.Crime_Type == "Theft" && element.Month == tempMonth);
+      });
+      var theftHeat = { "max": 10, "data": tempData }
+      heatmapLayer = new HeatmapOverlay(cfg);
+      heatmapLayer.setData(theftHeat);
+      mapObject.addLayer(heatmapLayer);
+    });
+
+    //shows only crash heatmap
+    $("#crashHeat").click(function () {
+      var tempMonth = getMonth();
+      resetButtons();
+      document.getElementById("crashHeat").style.backgroundColor = "grey";
+      mapObject.removeLayer(heatmapLayer)
+      var tempData = $.grep(filteredheatData.data, function (element, index) {
+        return element.Crime_Type == "Crash" && element.Month == tempMonth;
       });
       var crashHeat = { "max": 10, "data": tempData }
       heatmapLayer = new HeatmapOverlay(cfg);
@@ -369,11 +457,12 @@ window.onload = function () {
 
     //shows only drug heatmap
     $("#drugHeat").click(function () {
-      resetButtons();      
-      document.getElementById("drugHeat").style.backgroundColor = "grey";      
+      var tempMonth = getMonth();
+      resetButtons();
+      document.getElementById("drugHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        return element.Crime_Type == "Drug";
+        return element.Crime_Type == "Drug" && element.Month == tempMonth;
       });
       var drugHeat = { "max": 10, "data": tempData }
       heatmapLayer = new HeatmapOverlay(cfg);
@@ -383,11 +472,12 @@ window.onload = function () {
 
     //shows only admin heatmap
     $("#adminHeat").click(function () {
-      resetButtons();      
-      document.getElementById("adminHeat").style.backgroundColor = "grey";      
+      var tempMonth = getMonth();
+      resetButtons();
+      document.getElementById("adminHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        return element.Crime_Type == "Admin";
+        return element.Crime_Type == "Admin" && element.Month == tempMonth;
       });
       var adminHeat = { "max": 10, "data": tempData }
       heatmapLayer = new HeatmapOverlay(cfg);
@@ -397,11 +487,12 @@ window.onload = function () {
 
     //shows only assault/criminal heatmap
     $("#assaultHeat").click(function () {
-      resetButtons();      
-      document.getElementById("assaultHeat").style.backgroundColor = "grey";      
+      var tempMonth = getMonth();
+      resetButtons();
+      document.getElementById("assaultHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        return element.Crime_Type == "Assault";
+        return element.Crime_Type == "Assault" && element.Month == tempMonth;
       });
       var assaultHeat = { "max": 10, "data": tempData }
       heatmapLayer = new HeatmapOverlay(cfg);
@@ -411,11 +502,12 @@ window.onload = function () {
 
     //shows only "other" heatmap
     $("#otherHeat").click(function () {
-      resetButtons(); 
-      document.getElementById("otherHeat").style.backgroundColor = "grey";      
+      var tempMonth = getMonth();
+      resetButtons();
+      document.getElementById("otherHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       var tempData = $.grep(filteredheatData.data, function (element, index) {
-        return element.Crime_Type == "Other";
+        return element.Crime_Type == "Other" && element.Month == tempMonth;
       });
       var otherHeat = { "max": 10, "data": tempData }
       heatmapLayer = new HeatmapOverlay(cfg);
@@ -423,10 +515,11 @@ window.onload = function () {
       mapObject.addLayer(heatmapLayer);
     });
 
+
     //resets to full data heatmap
     $("#allHeat").click(function () {
-      resetButtons();  
-      document.getElementById("allHeat").style.backgroundColor = "grey";      
+      resetButtons();
+      document.getElementById("allHeat").style.backgroundColor = "grey";
       mapObject.removeLayer(heatmapLayer)
       heatmapLayer.setData(filteredheatData);
       mapObject.addLayer(heatmapLayer);
