@@ -53,6 +53,21 @@ li a:hover,
     color: #bb0000;
     font-family: "Arial", Helvetica, sans-serif;
 }
+
+#monthPicker {
+    position: fixed;
+    width: 10vw;
+    height: 5vh;
+    border: 1px solid black;
+    background: white;
+    border-radius: 10px;
+    top: 15vh;
+    right: 1vw;
+    text-align: left;
+    padding-left: 20px;
+    color: #bb0000;
+    font-family: "Arial", Helvetica, sans-serif;
+}
 #creditBox{
     position: fixed;
     width: 32vw;
@@ -268,3 +283,4 @@ li a:hover,
     cursor: pointer;
     cursor: hand;
 }
+
