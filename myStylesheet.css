@@ -117,6 +117,15 @@ li a:hover,
     border-radius: 10px;
 }
 
+.heatLegend {
+    background: white;
+    padding-left: 3px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 7px;
+    border-radius: 10px;
+}
+
 .circle {
     height: 14px;
     width: 14px;
