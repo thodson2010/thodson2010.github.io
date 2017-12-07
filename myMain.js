@@ -8,6 +8,16 @@
 var mapType = true;
 var myMonth = "Empty"
 
+function resetButtons() {
+  document.getElementById("theftHeat").style.backgroundColor = "transparent";
+  document.getElementById("crashHeat").style.backgroundColor = "transparent";
+  document.getElementById("drugHeat").style.backgroundColor = "transparent";
+  document.getElementById("adminHeat").style.backgroundColor = "transparent";
+  document.getElementById("assaultHeat").style.backgroundColor = "transparent";
+  document.getElementById("otherHeat").style.backgroundColor = "transparent";
+  document.getElementById("allHeat").style.backgroundColor = "transparent";
+}
+
 function getMonth(month) {
   var e = document.getElementById('monthValue');
   myMonth = e.options[e.selectedIndex].value;
@@ -20,6 +30,7 @@ $(document).on('change', '#monthValue', function () {
   myMonth = getMonth(myMonth1);
   mapObject.removeLayer(clusterGroup);
   myFunctionHolder.setLayers(crimeData, mapObject);
+  resetButtons()
 });
 
 var theftLayerGroup;
@@ -172,7 +183,9 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
     //writing type
     var type = "<p><b>Crime Type: </b>" + feature.properties["Incident_Type"] + "</p>";
     //writing description
-    var description = "<p><b>Description: </b>" + feature.properties.Description + "</p>";
+    //data censoring
+    //var description = "<p><b>Description: </b>" + feature.properties.Description + "</p>";
+    var description = "<p><b>Description: </b>" + "Omitted" + "</p>";
     //writing location, trim off end
     var incLocation = feature.properties.Location
     var endLoc = incLocation.indexOf("Ohio");
@@ -182,6 +195,7 @@ myFunctionHolder.pointToCircle = function (feature, latlng) {
     var reported = "<p><b>Reported On: </b>" + feature.properties["Reported_On"] + "</p>";
     //combining
     document.getElementById("description-box").innerHTML = intro + type + description + location + reported;
+
   });
   return circleMarker;
 }
@@ -403,7 +417,7 @@ window.onload = function () {
   document.getElementById('heatMap').onclick = function () {
 
     mapType = false;
-    
+
     //remove the current layers from the map
     mapObject.removeLayer(otherLayerGroup);
     mapObject.removeLayer(theftLayerGroup);
@@ -445,15 +459,7 @@ window.onload = function () {
     mapObject.addLayer(heatmapLayer);
 
     //resets button background color to white
-    function resetButtons() {
-      document.getElementById("theftHeat").style.backgroundColor = "transparent";
-      document.getElementById("crashHeat").style.backgroundColor = "transparent";
-      document.getElementById("drugHeat").style.backgroundColor = "transparent";
-      document.getElementById("adminHeat").style.backgroundColor = "transparent";
-      document.getElementById("assaultHeat").style.backgroundColor = "transparent";
-      document.getElementById("otherHeat").style.backgroundColor = "transparent";
-      document.getElementById("allHeat").style.backgroundColor = "transparent";
-    }
+
 
     resetButtons();
 
