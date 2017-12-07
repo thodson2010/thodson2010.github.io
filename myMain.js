@@ -289,7 +289,7 @@ window.onload = function () {
   }).addTo(mapObject);
 
   //Add text to credit box
-  document.getElementById("creditBox").innerHTML = "<p>Ohio State University Interactive Crime Map</p><p>Created by: Tim Hodson, Sam Mortinger, Chris Kinder, and Arafat Hassan</p>"
+  document.getElementById("creditBox").innerHTML = "<p>Ohio State University Interactive Crime Map</p><p>Created by: Tim Hodson, Sam Mortinger, Chris Kinder, and Arafat Hassan</p><p>Produced for: Morteza Karimzadeh, Geovisualization (Geog 5201)</p>"
 
   //add data to map
   myFunctionHolder.setLayers(crimeData, mapObject);
