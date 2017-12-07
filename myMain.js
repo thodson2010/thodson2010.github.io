@@ -5,7 +5,9 @@
 // ************************************************************************************
 // Date Filter
 //*************************************************************************************
+var mapType = true;
 var myMonth = "Empty"
+
 function getMonth(month) {
   var e = document.getElementById('monthValue');
   myMonth = e.options[e.selectedIndex].value;
@@ -39,85 +41,95 @@ var myFunctionHolder = {};
 
 //Filter for each crime type
 myFunctionHolder.filterTheft = function (feature) {
-  var type = feature.properties["Incident_Type"];
-  if (myMonth != "Empty") {
-    if ((type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking")) && feature.properties["Month"] === myMonth) {
-      return true;
+  if (mapType == true){
+    var type = feature.properties["Incident_Type"];
+    if (myMonth != "Empty") {
+      if ((type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking")) && feature.properties["Month"] === myMonth) {
+        return true;
+      }
+    }
+    else {
+      if (type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking")) {
+        return true;
+      }
     }
   }
-  else {
-    if (type.includes("Theft") || type.includes("Burglary") || type.includes("Breaking")) {
-      return true;
-    }
-  }
-
 }
 myFunctionHolder.filterCrash = function (feature) {
-  var type = feature.properties["Incident_Type"];
-  if (myMonth != "Empty") {
-    if (type.includes("Crash") && feature.properties["Month"] === myMonth) {
-      return true;
+  if (mapType == true){
+    var type = feature.properties["Incident_Type"];
+    if (myMonth != "Empty") {
+      if (type.includes("Crash") && feature.properties["Month"] === myMonth) {
+        return true;
+      }
     }
-  }
-  else {
-    if (type.includes("Crash")) {
-      return true;
+    else {
+      if (type.includes("Crash")) {
+        return true;
+      }
     }
   }
 }
 myFunctionHolder.filterDrug = function (feature) {
-  var type = feature.properties["Incident_Type"];
-  if (myMonth != "Empty") {
-    if (type.includes("Drug") && feature.properties["Month"] === myMonth) {
-      return true;
+  if (mapType == true){
+    var type = feature.properties["Incident_Type"];
+    if (myMonth != "Empty") {
+      if (type.includes("Drug") && feature.properties["Month"] === myMonth) {
+        return true;
+      }
     }
-  }
-  else {
-    if (type.includes("Drug")) {
-      return true;
+    else {
+      if (type.includes("Drug")) {
+        return true;
+      }
     }
   }
 }
 myFunctionHolder.filterAdmin = function (feature) {
-  var type = feature.properties["Incident_Type"];
-  if (myMonth != "Empty") {
-    if ((type.includes("Administrative") || type.includes("Assist")) && feature.properties["Month"] === myMonth) {
-      return true;
+  if (mapType == true){
+    var type = feature.properties["Incident_Type"];
+    if (myMonth != "Empty") {
+      if ((type.includes("Administrative") || type.includes("Assist")) && feature.properties["Month"] === myMonth) {
+        return true;
+      }
     }
-  }
-  else {
-    if (type.includes("Administrative") || type.includes("Assist")) {
-      return true;
+    else {
+      if (type.includes("Administrative") || type.includes("Assist")) {
+        return true;
+      }
     }
   }
 }
 
 myFunctionHolder.filterAssault = function (feature) {
-  var type = feature.properties["Incident_Type"];
-  if (myMonth != "Empty") {
-    if ((type.includes("Assault") || type.includes("Criminal")) && feature.properties["Month"] === myMonth) {
-      return true;
+  if (mapType == true){
+    var type = feature.properties["Incident_Type"];
+    if (myMonth != "Empty") {
+      if ((type.includes("Assault") || type.includes("Criminal")) && feature.properties["Month"] === myMonth) {
+        return true;
+      }
     }
-  }
-  else {
-    if (type.includes("Assault") || type.includes("Criminal")) {
-      return true;
+    else {
+      if (type.includes("Assault") || type.includes("Criminal")) {
+        return true;
+      }
     }
   }
 }
 
 myFunctionHolder.filterOther = function (feature) {
-  var type = feature.properties["Incident_Type"];
-  if (myMonth != "Empty") {
-    if ((!type.includes("Assault") && !type.includes("Criminal") && !type.includes("Administrative") && !type.includes("Assist") && !type.includes("Drug") && !type.includes("Crash") && !type.includes("Theft")) && feature.properties["Month"] === myMonth) {
-      return true;
+  if (mapType == true){
+    var type = feature.properties["Incident_Type"];
+    if (myMonth != "Empty") {
+      if ((!type.includes("Assault") && !type.includes("Criminal") && !type.includes("Administrative") && !type.includes("Assist") && !type.includes("Drug") && !type.includes("Crash") && !type.includes("Theft")) && feature.properties["Month"] === myMonth) {
+        return true;
+      }
     }
-  }
-  else {
-
-    if (!type.includes("Assault") && !type.includes("Criminal") && !type.includes("Administrative") && !type.includes("Assist") && !type.includes("Drug") && !type.includes("Crash") && !type.includes("Theft")
-      && !type.includes("Burglary") && !type.includes("Breaking")) {
-      return true;
+    else {
+      if (!type.includes("Assault") && !type.includes("Criminal") && !type.includes("Administrative") && !type.includes("Assist") && !type.includes("Drug") && !type.includes("Crash") && !type.includes("Theft")
+        && !type.includes("Burglary") && !type.includes("Breaking")) {
+        return true;
+      }
     }
   }
 }
@@ -390,6 +402,8 @@ window.onload = function () {
 
   document.getElementById('heatMap').onclick = function () {
 
+    mapType = false;
+    
     //remove the current layers from the map
     mapObject.removeLayer(otherLayerGroup);
     mapObject.removeLayer(theftLayerGroup);
