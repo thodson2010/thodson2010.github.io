@@ -259,7 +259,7 @@ myFunctionHolder.setLayers = function (data, map) {
       datasets: [
         {
           label: "Number of Occurrences",
-          backgroundColor: ["#800080", "#008000", "#0000FF", "#FFFF00", "#FF0000", "#F0F0F0"],
+          backgroundColor: ["#800080", "#008000", "#0000FF", "#FFFF00", "#FF0000", "#adabab"],
           data: [drugLength, theftLength, crashLength, adminLength, assaultLength, otherLength]
         }
       ]

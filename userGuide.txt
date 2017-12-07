@@ -1,5 +1,8 @@
-CrimeTime BETA (updated 12.5.17)
+CrimeTime BETA (updated 12.7.17)
 Developed by Tim Hodson, Sam Mortinger, Chris Kinder, and Arafat Hassan
+Developed for: Morteza Karimzadeh, Geovisualization (Geog 5201)
+https://geography.osu.edu/courses/5201 
+
 Data from January - October 2017
 
 Data obtained from the OSU Daily Crime Log
@@ -36,14 +39,18 @@ HOW DO I USE THE APP?
 
 - Toolbar -
 	* Select how the data is displayed on the map (plots of individual crimes or a heat map)
+
 - In-Map Filters (when dot map is selected) -
 	* Select which types of crimes to be displayed on the dot map
+
 - Selector Box Filters (when heat map is selected) -
 	* When heat map is displayed, filtering options become available for the heat map. Select
 	  the desired crime type to be displayed on the heat map
+
 - Month Selector -
 	* Select month of crime data to be displayed
 	* Combination of month and crime type filtering is possible for both map types
+	* When using the heatmap option, select the month first then select the crime type
 
 PROBLEMS TO BE FIXED
 
