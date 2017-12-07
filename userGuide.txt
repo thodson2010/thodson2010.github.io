@@ -1,5 +1,9 @@
 CrimeTime BETA (updated 12.7.17)
-Developed by Tim Hodson, Sam Mortinger, Chris Kinder, and Arafat Hassan
+Developed by: 
+	Tim Hodson - hodson.24@buckeyemail.osu.edu
+	Sam Mortinger - 
+	Chris Kinder - 
+	Arafat Hassan - 
 Developed for: Morteza Karimzadeh, Geovisualization (Geog 5201)
 https://geography.osu.edu/courses/5201 
 
