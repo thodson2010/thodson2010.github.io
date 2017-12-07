@@ -301,7 +301,8 @@ window.onload = function () {
   //add overlay for toggling crime types, id = "toggles"
   var toggle = L.control({ position: 'bottomleft' });
   var legend = L.control({ position: 'bottomright' });
-  var heatLegend = L.control({ position: 'bottomright' });
+  var heatLegend10 = L.control({ position: 'bottomright' });
+  var heatLegend5 = L.control({ position: 'bottomright'});
 
   //Adds toggles to map
   toggle.onAdd = function (map) {
@@ -310,6 +311,7 @@ window.onload = function () {
     return div;
   };
 
+  //Adds dot map legend to map
   legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'legend'),
@@ -325,7 +327,8 @@ window.onload = function () {
     return div;
   };
 
-  heatLegend.onAdd = function (map) {
+  //Adds heat map legend to map for all crimes
+  heatLegend10.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'heatLegend'),
       title = [];
     div.innerHTML += title.push('<strong>Number</strong>');
@@ -339,6 +342,23 @@ window.onload = function () {
     return div;
   }
 
+  //Adds heat map legend to map for individual crime types
+  heatLegend5.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'heatLegend'),
+      title = [];
+    div.innerHTML += title.push('<strong>Number</strong>');
+    div.innerHTML += title.push('<strong>Crimes</strong>');
+    div.innerHTML += title.push('5');
+    div.innerHTML += title.push('<i class="heatGradient"></i>');
+    div.innerHTML += title.push('0');
+
+    div.innerHTML = title.join('<br>');
+
+    return div;
+  }
+
+
+  //Get color of crime type symbol
   function getColor(d) {
     switch (d) {
       case 'Theft':
@@ -359,7 +379,7 @@ window.onload = function () {
   var overlays = {
     "Thefts": theftLayerGroup
   };
-  mapObject.fitBounds(adminLayerGroup.getBounds());
+  mapObject.fitBounds([[40.0183,-83.0458],[39.9910,-83.0063]]);
   toggle.addTo(mapObject);
   legend.addTo(mapObject);
 
@@ -430,7 +450,7 @@ window.onload = function () {
     //remove dot map filters and legends and add heat map legend
     mapObject.removeControl(toggle);
     mapObject.removeControl(legend);
-    heatLegend.addTo(mapObject);
+    heatLegend10.addTo(mapObject);
 
     //heatmap code from leaflet
     var cfg = {
@@ -475,6 +495,8 @@ window.onload = function () {
 
     //shows only theft heatmap
     $("#theftHeat").click(function () {
+      mapObject.removeControl(heatLegend10);
+      heatLegend5.addTo(mapObject);
       var tempMonth = getMonth();
       resetButtons();
       document.getElementById("theftHeat").style.backgroundColor = "grey";
@@ -495,6 +517,8 @@ window.onload = function () {
 
     //shows only crash heatmap
     $("#crashHeat").click(function () {
+      mapObject.removeControl(heatLegend10);
+      heatLegend5.addTo(mapObject);
       var tempMonth = getMonth();
       resetButtons();
       document.getElementById("crashHeat").style.backgroundColor = "grey";
@@ -515,6 +539,8 @@ window.onload = function () {
 
     //shows only drug heatmap
     $("#drugHeat").click(function () {
+      mapObject.removeControl(heatLegend10);
+      heatLegend5.addTo(mapObject);
       var tempMonth = getMonth();
       resetButtons();
       document.getElementById("drugHeat").style.backgroundColor = "grey";
@@ -535,6 +561,8 @@ window.onload = function () {
 
     //shows only admin heatmap
     $("#adminHeat").click(function () {
+      mapObject.removeControl(heatLegend10);
+      heatLegend5.addTo(mapObject);
       var tempMonth = getMonth();
       resetButtons();
       document.getElementById("adminHeat").style.backgroundColor = "grey";
@@ -555,6 +583,8 @@ window.onload = function () {
 
     //shows only assault/criminal heatmap
     $("#assaultHeat").click(function () {
+      mapObject.removeControl(heatLegend10);
+      heatLegend5.addTo(mapObject);
       var tempMonth = getMonth();
       resetButtons();
       document.getElementById("assaultHeat").style.backgroundColor = "grey";
@@ -576,6 +606,8 @@ window.onload = function () {
 
     //shows only "other" heatmap
     $("#otherHeat").click(function () {
+      mapObject.removeControl(heatLegend10);
+      heatLegend5.addTo(mapObject);
       var tempMonth = getMonth();
       resetButtons();
       document.getElementById("otherHeat").style.backgroundColor = "grey";
@@ -597,6 +629,8 @@ window.onload = function () {
 
     //resets to full data heatmap
     $("#allHeat").click(function () {
+      mapObject.removeControl(heatLegend5);
+      heatLegend10.addTo(mapObject);
       var tempMonth = getMonth();
       resetButtons();
       document.getElementById("allHeat").style.backgroundColor = "grey";

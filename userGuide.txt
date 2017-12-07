@@ -1,9 +1,9 @@
 CrimeTime BETA (updated 12.7.17)
 Developed by: 
 	Tim Hodson - hodson.24@buckeyemail.osu.edu
-	Sam Mortinger - 
-	Chris Kinder - 
-	Arafat Hassan - 
+	Sam Mortinger - mortinger.4@buckeyemail.osu.edu
+	Chris Kinder - kinder.54@buckeyemail.osu.edu
+	Arafat Hassan - hassan.239@buckeyemail.osu.edu
 	Developed for: Morteza Karimzadeh, Geovisualization (Geog 5201)
 	https://geography.osu.edu/courses/5201 
 
@@ -52,4 +52,7 @@ HOW DO I USE THE APP?
 PROBLEMS TO BE FIXED
 	Chart Bug - 
 		Depending on position of mouse and where it hovers, the chart sporadically changes scale
+	Spiral Display of Points -
+		When clicking on a point in the spiral display of individual crimes, the spiral collapses
+		in that location
 
