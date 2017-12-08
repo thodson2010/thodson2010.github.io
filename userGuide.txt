@@ -31,6 +31,7 @@ WHAT AM I SEEING?
 The application consists of 3 different elements:
 	The map (left) - 
 		* displays the desired data on a map
+		* clusters are green for 0-9 crimes in an area, yellow for 10-99, and red for 100+
 	The month selector box (top right) -
 		* allows the selection of crime in a specific month to be displayed
 	The description/selector box (middle right) -
@@ -54,8 +55,12 @@ HOW DO I USE THE APP?
 
 PROBLEMS TO BE FIXED
 	Chart Bug - 
-		Depending on position of mouse and where it hovers, the chart sporadically changes scale
+		The chart does not update for heat map filtering
 	Spiral Display of Points -
 		When clicking on a point in the spiral display of individual crimes, the spiral collapses
 		in that location
+	Points Bug -
+		When some crime type filters are unchecked when selecting a new month in dot map, all crime
+		types become visible again. This can result in crime points still being on the map when no
+		crime types are checked.
 
