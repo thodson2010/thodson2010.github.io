@@ -251,33 +251,25 @@ myFunctionHolder.setLayers = function (data, map) {
 
   map.addLayer(clusterGroup);
 
-  var ctx = document.getElementById("chartContainer").getContext('2d');
-  myChart = new Chart(ctx, {
+  var data = [
+  {
+    x: ["Drug-Related", "Theft", "Traffic Incident", "Administrative", "Criminal Incident", "Other"],
+    y: [drugLength, theftLength, crashLength, adminLength, assaultLength, otherLength],
     type: 'bar',
-    data: {
-      labels: ["Drug-Related", "Theft", "Traffic Incident", "Administrative", "Criminal Incident", "Other"],
-      datasets: [
-        {
-          label: "Number of Occurrences",
-          backgroundColor: ["#800080", "#008000", "#0000FF", "#FFFF00", "#FF0000", "#adabab"],
-          data: [drugLength, theftLength, crashLength, adminLength, assaultLength, otherLength]
-        }
-      ]
-    },
-    options: {
-      legend: { display: false },
-      /* scales: {
-        yAxes: [{id: 'y-axis-1', type: 'linear', position: 'left', ticks: {min: 0, max: 1000}}]
-      }, */
-      responsive: false,
-      hover: { mode: null },
-      maintainAspectRatio: true,
-      title: {
-        display: true,
-        text: 'Crime Occurrences Around Campus'
-      }
+    marker:{
+    color: ["#800080", "#008000", "#0000FF", "#FFFF00", "#FF0000", "#adabab"]
     }
-  });
+  }
+];
+
+var layout = {
+  title: 'Crime Occurrences Around Campus',
+  xaxis: {
+    tickangle: -45
+  },
+};
+
+Plotly.newPlot('chartContainer', data, layout, {displayModeBar: false});
 }
 
 //execute onload
