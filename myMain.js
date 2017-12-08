@@ -33,15 +33,9 @@ $(document).on('change', '#monthValue', function () {
   //resetButtons()
 });
 
-var theftLayerGroup;
-var adminLayerGroup;
-var assaultLayerGroup;
-var crashLayerGroup;
-var drugLayerGroup;
-var otherLayerGroup;
-var clusterGroup;
 var mapObject;
-var myChart;
+var heatChecked = false;
+var theftLayerGroup, adminLayerGroup, assaultLayerGroup, crashLayerGroup, drugLayerGroup, otherLayerGroup, clusterGroup;
 var theftLength, drugLength, adminLength, assaultLength, crashLength, otherLength;
 
 
@@ -249,27 +243,35 @@ myFunctionHolder.setLayers = function (data, map) {
   assaultLength = assaultLayerGroup.getLayers().length;
   otherLength = otherLayerGroup.getLayers().length;
 
-  map.addLayer(clusterGroup);
+  console.log(drugLength);
+  console.log(theftLength);
+  console.log(crashLength);
+  console.log(adminLength);
+  console.log(assaultLength);
+  console.log(otherLength);
 
-  var data = [
+  if (heatChecked == false)
   {
-    x: ["Drug-Related", "Theft", "Traffic Incident", "Administrative", "Criminal Incident", "Other"],
-    y: [drugLength, theftLength, crashLength, adminLength, assaultLength, otherLength],
-    type: 'bar',
-    marker:{
-    color: ["#800080", "#008000", "#0000FF", "#FFFF00", "#FF0000", "#adabab"]
-    }
+    map.addLayer(clusterGroup);
+
+    var data = [{
+      x: ["Drug-Related", "Theft", "Traffic Incident", "Administrative", "Criminal Incident", "Other"],
+      y: [drugLength, theftLength, crashLength, adminLength, assaultLength, otherLength],
+      type: 'bar',
+      marker:{
+      color: ["#800080", "#008000", "#0000FF", "#FFFF00", "#FF0000", "#adabab"]
+      }
+    }];
+
+    var layout = {
+      title: 'Crime Occurrences Around Campus',
+      xaxis: {
+        tickangle: -45
+      },
+    };
+
+    Plotly.newPlot('chartContainer', data, layout, {displayModeBar: false});
   }
-];
-
-var layout = {
-  title: 'Crime Occurrences Around Campus',
-  xaxis: {
-    tickangle: -45
-  },
-};
-
-Plotly.newPlot('chartContainer', data, layout, {displayModeBar: false});
 }
 
 //execute onload
@@ -420,6 +422,7 @@ window.onload = function () {
   //reload the map when dotMap is selected
   document.getElementById('dotMap').onclick = function () {
     location.reload();
+    heatChecked = false;
   }
 
   // ************************************************************************************
@@ -429,14 +432,9 @@ window.onload = function () {
   document.getElementById('heatMap').onclick = function () {
 
     mapType = false;
+    heatChecked = true;
 
     //remove the current layers from the map
-    mapObject.removeLayer(otherLayerGroup);
-    mapObject.removeLayer(theftLayerGroup);
-    mapObject.removeLayer(crashLayerGroup);
-    mapObject.removeLayer(drugLayerGroup);
-    mapObject.removeLayer(adminLayerGroup);
-    mapObject.removeLayer(assaultLayerGroup);
     mapObject.removeLayer(clusterGroup);
 
     //remove dot map filters and legends and add heat map legend
