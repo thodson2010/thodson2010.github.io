@@ -59,7 +59,7 @@ li a:hover,
 #monthPicker {
     position: fixed;
     width: 10vw;
-    height: 6vh;
+    height: 4vh;
     border: 1px solid black;
     background: white;
     border-radius: 10px;
