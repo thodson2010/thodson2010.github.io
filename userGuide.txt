@@ -7,6 +7,9 @@ Developed by:
 	Developed for: Morteza Karimzadeh, Geovisualization (Geog 5201)
 	https://geography.osu.edu/courses/5201 
 
+VIDEO INTRODUCTION:
+	https://youtu.be/FWyyP7MNEHo
+	
 DATA
 	Data from January - October 2017
 	Data obtained from the OSU Daily Crime Log
