@@ -30,7 +30,7 @@ $(document).on('change', '#monthValue', function () {
   myMonth = getMonth(myMonth1);
   mapObject.removeLayer(clusterGroup);
   myFunctionHolder.setLayers(crimeData, mapObject);
-  resetButtons()
+  //resetButtons()
 });
 
 var theftLayerGroup;
