@@ -1,4 +1,4 @@
-#CrimeTime BETA (updated 12.7.17)
+CrimeTime BETA (updated 12.7.17)
 Developed by: 
 	Tim Hodson - hodson.24@buckeyemail.osu.edu
 	Sam Mortinger - mortinger.4@buckeyemail.osu.edu
